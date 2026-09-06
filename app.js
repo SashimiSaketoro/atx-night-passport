@@ -664,7 +664,7 @@
               ${b.website ? `<a class="btn" href="${escapeHtml(b.website)}" target="_blank" rel="noopener">Website</a>` : ""}
               <a class="btn" href="${mapsUrl(b)}" target="_blank" rel="noopener">Maps</a>
               <button type="button" class="btn" data-show-on-map="${b.id}">Map pin</button>
-              <button type="button" class="btn primary" data-stamp="${b.id}">${stamped ? (stampPaidBtc(b.id) ? "₿ sealed" : "Sealed ✓") : "Get wax seal"}</button>
+              <button type="button" class="btn primary" data-stamp="${b.id}">${stamped ? (stampPaidBtc(b.id) ? "₿ sealed" : "Sealed") : "Get seal"}</button>
             </div>
           </div>
         </article>`;
@@ -897,7 +897,7 @@
         ${isNightFuel(b) ? '<span style="display:inline-block;margin-top:4px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(232,176,112,0.45);color:#e8b070;padding:2px 6px;border-radius:999px">Kitchen</span><br/>' : ""}
         ${b.partner ? '<span style="display:inline-block;margin-top:4px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:#8b2e1f;color:#f3ead7;padding:2px 6px;border-radius:3px">On Board</span><br/>' : ""}
         <button type="button" class="popup-stamp ${stamped ? "stamped" : ""}" onclick="window.__atxStamp('${b.id}')">
-          ${stamped ? "Sealed ✓" : "Get wax seal"}
+          ${stamped ? "Sealed" : "Get seal"}
         </button>
       `);
       m.addTo(state.map);

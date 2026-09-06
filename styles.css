@@ -550,6 +550,7 @@ body {
   font-weight: 600;
   color: var(--cream);
 }
+.section-intro .section-kicker { color: var(--btc); }
 .section-intro p {
   margin: 4px 0 0;
   color: var(--ink-dim);
