@@ -314,6 +314,37 @@
     return `${(m / 1000).toFixed(1)} km`;
   }
 
+
+  function listStampBtn(bar, stamped) {
+    const paid = stamped && stampPaidBtc(bar.id);
+    const label = stamped ? (paid ? "Sealed · paid in Bitcoin" : "Sealed") : "Collect wax seal";
+    const cls = `stamp-btn ${stamped ? "stamped" : "empty"}${paid ? " btc-paid" : ""}`;
+    if (stamped) {
+      const mark = paid ? "₿" : "ATX";
+      return `<button type="button" class="${cls}" data-stamp="${bar.id}" aria-label="${label}" title="${label}">
+        <span class="stamp-btn-face" aria-hidden="true">
+          <svg viewBox="0 0 56 56" class="stamp-btn-svg">
+            <circle cx="28" cy="28" r="25" fill="${paid ? "#f7931a" : "#8b2e1f"}" stroke="${paid ? "#ffd27a" : "#c4a05a"}" stroke-width="2"/>
+            <circle cx="28" cy="28" r="19" fill="none" stroke="rgba(243,234,215,0.3)" stroke-width="1"/>
+            <text x="28" y="26" text-anchor="middle" font-size="${paid ? 14 : 9}" font-weight="700" fill="${paid ? "#1a1005" : "#f3ead7"}" font-family="Georgia,serif">${mark}</text>
+            <text x="28" y="38" text-anchor="middle" font-size="6" fill="${paid ? "#1a1005" : "#f3ead7"}" opacity="0.85" font-family="system-ui,sans-serif">SEALED</text>
+          </svg>
+        </span>
+      </button>`;
+    }
+    // Empty: dashed wax ring — clearly not collected
+    return `<button type="button" class="${cls}" data-stamp="${bar.id}" aria-label="${label}" title="${label}">
+      <span class="stamp-btn-face" aria-hidden="true">
+        <svg viewBox="0 0 56 56" class="stamp-btn-svg">
+          <circle cx="28" cy="28" r="24" fill="rgba(232,224,208,0.04)" stroke="rgba(232,224,208,0.35)" stroke-width="1.75" stroke-dasharray="3.5 2.5"/>
+          <circle cx="28" cy="28" r="17" fill="none" stroke="rgba(232,224,208,0.18)" stroke-width="1" stroke-dasharray="2 2"/>
+          <text x="28" y="25" text-anchor="middle" font-size="8" fill="rgba(232,224,208,0.35)" font-family="Georgia,serif">ATX</text>
+          <text x="28" y="36" text-anchor="middle" font-size="5.5" letter-spacing="0.8" fill="rgba(232,224,208,0.4)" font-family="system-ui,sans-serif">GET SEAL</text>
+        </svg>
+      </span>
+    </button>`;
+  }
+
   async function stampBar(id, { silent } = {}) {
     const bar = barById(id);
     if (!bar) return;
@@ -581,9 +612,7 @@
               <p class="dossier-vibe">${escapeHtml(teaserVibe(b))}</p>
             </button>
             <div class="dossier-actions">
-              <button type="button" class="stamp-btn ${stamped ? "stamped" : ""}" data-stamp="${b.id}" aria-label="${stamped ? "Stamped" : "Stamp"}">
-                ${stamped ? "✓" : "Stamp"}
-              </button>
+              ${listStampBtn(b, stamped)}
             </div>
           </div>
           <div class="dossier-body">
@@ -594,7 +623,7 @@
               ${b.website ? `<a class="btn" href="${escapeHtml(b.website)}" target="_blank" rel="noopener">Website</a>` : ""}
               <a class="btn" href="${mapsUrl(b)}" target="_blank" rel="noopener">Maps</a>
               <button type="button" class="btn" data-show-on-map="${b.id}">Map pin</button>
-              <button type="button" class="btn primary" data-stamp="${b.id}">${stamped ? "Stamped ✓" : "Collect stamp"}</button>
+              <button type="button" class="btn primary" data-stamp="${b.id}">${stamped ? (stampPaidBtc(b.id) ? "₿ sealed" : "Sealed ✓") : "Get wax seal"}</button>
             </div>
           </div>
         </article>`;
@@ -641,7 +670,7 @@
                     <h3>${escapeHtml(b ? b.name : id)}${partner ? ' <span class="onboard">On Board</span>' : ""}</h3>
                     <p>${escapeHtml(clue)}</p>
                   </div>
-                  <button type="button" class="mini-stamp ${done ? "stamped" : ""}" data-stamp="${id}">${done ? "Sealed" : "Stamp"}</button>
+                  <button type="button" class="mini-stamp ${done ? "stamped" : "empty"}" data-stamp="${id}" aria-label="${done ? "Sealed" : "Get seal"}" title="${done ? "Sealed" : "Get seal"}">${done ? "●" : "○"}</button>
                 </div>`;
               })
               .join("")}
@@ -824,7 +853,7 @@
         ${escapeHtml(b.address)}<br/>
         ${b.partner ? '<span style="display:inline-block;margin-top:4px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:#8b2e1f;color:#f3ead7;padding:2px 6px;border-radius:3px">On Board</span><br/>' : ""}
         <button type="button" class="popup-stamp ${stamped ? "stamped" : ""}" onclick="window.__atxStamp('${b.id}')">
-          ${stamped ? "Stamped ✓" : "Stamp here"}
+          ${stamped ? "Sealed ✓" : "Get wax seal"}
         </button>
       `);
       m.addTo(state.map);
