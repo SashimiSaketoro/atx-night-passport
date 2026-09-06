@@ -1167,40 +1167,6 @@ body.gaydar-mode .hud {
 }
 
 
-/* BTC / ETH mode */
-.mode-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-.mode-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--line-strong);
-  background: var(--paper-3);
-  color: var(--ink-dim);
-  font: 700 12px/1 var(--sans);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.mode-chip .mode-ico { font-size: 14px; }
-.mode-chip.on[data-mode="btc"] {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: var(--gold-dim);
-  box-shadow: 0 0 0 1px rgba(196,160,90,0.25);
-}
-.mode-chip.on[data-mode="eth"] {
-  border-color: transparent;
-  color: #fff;
-  background: linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #24408e, #732982);
-  text-shadow: 0 1px 2px rgba(0,0,0,.4);
-}
 .open-dot {
   width: 10px !important;
   height: 10px !important;
@@ -1222,4 +1188,89 @@ body.gaydar-mode .hud {
   border: 1px solid rgba(61,186,122,0.4);
   padding: 2px 6px;
   border-radius: 999px;
+}
+
+
+/* Compact BTC/ETH chain toggle */
+.seal-row-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.chain-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-3);
+  color: var(--ink-dim);
+  cursor: pointer;
+  font: 700 10px/1 var(--sans);
+  letter-spacing: 0.1em;
+}
+.chain-track {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(196,160,90,0.35);
+  border: 1px solid rgba(196,160,90,0.5);
+  flex-shrink: 0;
+}
+.chain-thumb {
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold, #c4a05a);
+  transition: transform 0.18s ease, background 0.18s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+.chain-labels {
+  display: inline-flex;
+  gap: 6px;
+  min-width: 4.5em;
+}
+.chain-btc { color: var(--gold, #c4a05a); opacity: 1; }
+.chain-eth { opacity: 0.35; }
+.chain-toggle[aria-pressed="true"] .chain-track {
+  background: linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #24408e, #732982);
+  border-color: transparent;
+}
+.chain-toggle[aria-pressed="true"] .chain-thumb {
+  transform: translateX(16px);
+  background: #fff;
+}
+.chain-toggle[aria-pressed="true"] .chain-btc { opacity: 0.35; color: inherit; }
+.chain-toggle[aria-pressed="true"] .chain-eth {
+  opacity: 1;
+  background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #c77dff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.dossier-about {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-dim);
+}
+.dossier-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold, #c4a05a);
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+.dossier-link:hover { text-decoration: underline; }
+body.gaydar-mode .chain-toggle {
+  border-color: rgba(255,255,255,0.25);
 }

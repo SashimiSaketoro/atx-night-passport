@@ -1,4 +1,4 @@
-const CACHE = "atx-night-passport-v3";
+const CACHE = "atx-night-passport-v5";
 const SHELL = [
   "./",
   "./index.html",

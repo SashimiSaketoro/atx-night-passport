@@ -272,10 +272,19 @@
     return `https://maps.apple.com/?q=${q}`;
   }
 
+  function teaserVibe(bar) {
+    const raw = (bar.vibe || "").trim();
+    if (!raw) return "";
+    if (raw.length <= 100) return raw;
+    const cut = raw.slice(0, 97);
+    const sp = cut.lastIndexOf(" ");
+    return (sp > 60 ? cut.slice(0, sp) : cut) + "…";
+  }
+
   function matchesEthCircuit(bar) {
     if (state.mode !== "eth") return true;
-    // ETH rainbow circuit: primary queer + adjacent
-    return bar.gaydar === "hard" || bar.gaydar === "soft";
+    // ETH rainbow circuit: gay-primary venues only
+    return bar.gaydar === "hard";
   }
 
   function austinNow() {
@@ -334,7 +343,8 @@
           b.area.toLowerCase().includes(q) ||
           b.address.toLowerCase().includes(q) ||
           b.cluster.toLowerCase().includes(q) ||
-          (b.vibe || "").toLowerCase().includes(q)
+          (b.vibe || "").toLowerCase().includes(q) ||
+        (b.about || "").toLowerCase().includes(q)
         );
       })
       .sort((a, b) => {
@@ -406,7 +416,7 @@
                 ${b.crypto ? `<span class="btc-seal-sm" title="${escapeHtml(b.cryptoMethods || "Crypto")}">₿</span>` : ""}
               </div>
               <h2 class="dossier-title">${escapeHtml(b.name)}</h2>
-              <p class="dossier-vibe">${escapeHtml(b.vibe || "")}</p>
+              <p class="dossier-vibe">${escapeHtml(teaserVibe(b))}</p>
             </button>
             <div class="dossier-actions">
               <button type="button" class="stamp-btn ${stamped ? "stamped" : ""}" data-stamp="${b.id}" aria-label="${stamped ? "Stamped" : "Stamp"}">
@@ -415,9 +425,11 @@
             </div>
           </div>
           <div class="dossier-body">
+            <p class="dossier-about">${escapeHtml(b.about || b.vibe || "")}</p>
             <p class="dossier-addr">${escapeHtml(b.address)}</p>
             <p class="dossier-meta">${escapeHtml(b.area)} · ${escapeHtml(b.cluster)}${b.crypto && b.cryptoMethods ? ` · ${escapeHtml(b.cryptoMethods)}` : ""}</p>
             <div class="btn-row">
+              ${b.website ? `<a class="btn" href="${escapeHtml(b.website)}" target="_blank" rel="noopener">Website</a>` : ""}
               <a class="btn" href="${mapsUrl(b)}" target="_blank" rel="noopener">Maps</a>
               <button type="button" class="btn" data-show-on-map="${b.id}">Map pin</button>
               <button type="button" class="btn primary" data-stamp="${b.id}">${stamped ? "Stamped ✓" : "Collect stamp"}</button>
@@ -670,18 +682,16 @@
     state.mode = next;
     state.gaydar = next === "eth" ? "on" : "off";
     document.body.classList.toggle("gaydar-mode", next === "eth");
-    const btc = $("#modeBtc");
-    const eth = $("#modeEth");
-    if (btc && eth) {
-      btc.classList.toggle("on", next === "btc");
-      eth.classList.toggle("on", next === "eth");
-      btc.setAttribute("aria-pressed", next === "btc" ? "true" : "false");
-      eth.setAttribute("aria-pressed", next === "eth" ? "true" : "false");
+    const btn = $("#chainToggle");
+    if (btn) {
+      btn.setAttribute("aria-pressed", next === "eth" ? "true" : "false");
+      btn.dataset.mode = next;
+      btn.title = next === "eth" ? "ETH mode (gay circuit)" : "BTC mode";
     }
     try {
       localStorage.setItem(ETH_KEY, next === "eth" ? "1" : "0");
     } catch {}
-    if (toastOn && changing && next === "eth") toast("ETH mode synced");
+    if (toastOn && changing && next === "eth") toast("ETH · gay circuit");
     if (toastOn && changing && next === "btc") toast("BTC mode");
   }
 
@@ -838,12 +848,13 @@
       btn.addEventListener("click", () => setScreen(btn.dataset.nav));
     });
 
-    $$(".mode-chip").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        setMode(btn.dataset.mode, { toastOn: true });
+    const chain = $("#chainToggle");
+    if (chain) {
+      chain.addEventListener("click", () => {
+        setMode(state.mode === "eth" ? "btc" : "eth", { toastOn: true });
         render();
       });
-    });
+    }
     const openBtn = $("#openNowFilter");
     if (openBtn) {
       openBtn.addEventListener("click", () => {

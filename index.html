@@ -81,23 +81,23 @@
             <p class="dist-status" id="distStatus" hidden></p>
           </div>
 
-          <div class="mode-row" role="group" aria-label="Chain mode">
-            <button type="button" class="mode-chip on" id="modeBtc" data-mode="btc" aria-pressed="true">
-              <span class="mode-ico">₿</span> BTC
-            </button>
-            <button type="button" class="mode-chip" id="modeEth" data-mode="eth" aria-pressed="false">
-              <span class="mode-ico">◇</span> ETH
-            </button>
-          </div>
-
-          <div class="seal-row">
+          <div class="seal-row seal-row-filters">
             <button type="button" class="seal-btn" id="cryptoFilter" aria-pressed="false" title="Crypto venues">
               <span class="seal-face">₿</span>
-              <span class="seal-text">Crypto seal</span>
+              <span class="seal-text">Crypto</span>
             </button>
             <button type="button" class="seal-btn" id="openNowFilter" aria-pressed="false" title="Likely open now">
               <span class="seal-face open-dot" aria-hidden="true"></span>
               <span class="seal-text">Open now</span>
+            </button>
+            <button type="button" class="chain-toggle" id="chainToggle" aria-pressed="false" title="BTC / ETH mode" data-mode="btc">
+              <span class="chain-track" aria-hidden="true">
+                <span class="chain-thumb"></span>
+              </span>
+              <span class="chain-labels">
+                <span class="chain-btc">BTC</span>
+                <span class="chain-eth">ETH</span>
+              </span>
             </button>
             <span class="meta-hint" id="countMeta">—</span>
           </div>
@@ -172,7 +172,7 @@
     </nav>
 
     <footer class="site-foot">
-      <span class="foot-note">BTC default · ETH = rainbow queer circuit · Add to Home Screen</span>
+      <span class="foot-note">BTC default · ETH = gay circuit · Add to Home Screen</span>
     </footer>
   </div>
 
