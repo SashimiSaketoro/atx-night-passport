@@ -1,11 +1,15 @@
 # ATX Night Passport
 
-Austin nightlife scavenger-hunt PWA.
+Austin nightlife scavenger-hunt PWA — geo stamps, missions, crypto seals.
 
 ## Live
 
-GitHub Pages (after enable): `https://sashimisaketoro.github.io/atx-night-passport/`
+**https://sashimisaketoro.github.io/atx-night-passport/**
 
-Local: open `index.html` via any static server.
+Repo: https://github.com/SashimiSaketoro/atx-night-passport
 
-Demo geo (skip fence): `?demo=1`
+## Notes
+
+- Stamp when you're past the doors (~45 m of the pin). Sidewalk pass-bys don't count.
+- Demo geo (skip fence): add `?demo=1`
+- ETH mode is a discreet Off/On control in the UI
