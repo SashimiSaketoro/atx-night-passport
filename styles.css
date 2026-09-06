@@ -113,6 +113,16 @@ body {
   color: var(--cream);
 }
 .brand em { font-style: italic; color: var(--gold); font-weight: 500; }
+.brand-tagline {
+  margin: 5px 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  color: var(--btc);
+}
 .xp-pill {
   display: flex; flex-direction: column; align-items: flex-end;
   padding: 6px 10px;
@@ -215,7 +225,7 @@ body {
   transition: max-height 0.22s ease, opacity 0.18s ease, padding 0.22s ease;
 }
 .app:not(.explore-scrolled) .passport-mast {
-  max-height: 96px;
+  max-height: 112px;
   opacity: 1;
   transition: max-height 0.22s ease, opacity 0.18s ease, padding 0.22s ease;
 }
@@ -1132,6 +1142,9 @@ body.gaydar-mode .passport-mast {
 body.gaydar-mode .brand {
   color: #fff;
   text-shadow: 0 0 24px rgba(255, 90, 200, 0.55);
+}
+body.gaydar-mode .brand-tagline {
+  color: #ffc4de;
 }
 body.gaydar-mode .brand em {
   background: linear-gradient(90deg, #ff2d55, #ff9500, #ffcc00, #34c759, #5ac8fa, #af52de, #ff2d55);
