@@ -135,7 +135,9 @@
               <div class="level-fill" id="levelFill"></div>
             </div>
             <p class="level-caption" id="levelCaption">Level 1 · Wanderer</p>
+            <div class="passport-stats" id="passportStats" aria-live="polite"></div>
           </div>
+          <div class="stamp-detail" id="stampDetail" hidden></div>
           <div class="stamp-grid" id="stampGrid"></div>
         </div>
       </section>
@@ -184,6 +186,17 @@
     </footer>
   </div>
 
+  <div class="btc-pay-sheet" id="btcPaySheet" hidden role="dialog" aria-label="Paid in Bitcoin">
+    <div class="btc-pay-card">
+      <div class="btc-pay-ico" aria-hidden="true">₿</div>
+      <h3>Paid in Bitcoin?</h3>
+      <p>Stamp a special orange seal for <strong id="btcPayName">this stop</strong> if you settled the tab in ₿.</p>
+      <div class="btc-pay-actions">
+        <button type="button" class="btn primary" id="btcPayYes">Yes — ₿ seal</button>
+        <button type="button" class="btn" id="btcPayNo">Not this time</button>
+      </div>
+    </div>
+  </div>
   <div class="toast" id="toast" role="status"></div>
   <div class="stamp-burst" id="stampBurst" aria-hidden="true"></div>
 

@@ -35,6 +35,7 @@
     query: "",
     screen: "explore",
     stamps: loadStamps(),
+    viewingStampId: null,
     hop: loadHop(),
     activeHuntId: loadActiveHunt(),
     viewingHuntId: null,
@@ -55,7 +56,14 @@
   function loadStamps() {
     try {
       const raw = localStorage.getItem(STAMPS_KEY);
-      return raw ? JSON.parse(raw) : {};
+      const data = raw ? JSON.parse(raw) : {};
+      // migrate legacy number timestamps → records
+      Object.keys(data).forEach((id) => {
+        if (typeof data[id] === "number") {
+          data[id] = { at: data[id], paidBtc: false };
+        }
+      });
+      return data;
     } catch {
       return {};
     }
@@ -111,8 +119,107 @@
   function isStamped(id) {
     return Boolean(state.stamps[id]);
   }
+  function stampRecord(id) {
+    const raw = state.stamps[id];
+    if (!raw) return null;
+    if (typeof raw === "number") return { at: raw, paidBtc: false };
+    return {
+      at: raw.at || Date.now(),
+      paidBtc: Boolean(raw.paidBtc),
+    };
+  }
+  function stampTime(id) {
+    const r = stampRecord(id);
+    return r ? r.at : 0;
+  }
+  function stampPaidBtc(id) {
+    const r = stampRecord(id);
+    return Boolean(r && r.paidBtc);
+  }
+  function setStamp(id, patch = {}) {
+    const prev = stampRecord(id) || { at: Date.now(), paidBtc: false };
+    state.stamps[id] = { ...prev, ...patch, at: patch.at || prev.at };
+    saveStamps();
+  }
   function stampCount() {
     return Object.keys(state.stamps).length;
+  }
+  function btcPaidCount() {
+    return Object.keys(state.stamps).filter((id) => stampPaidBtc(id)).length;
+  }
+  function formatStampDate(ts) {
+    try {
+      return new Date(ts).toLocaleDateString("en-US", {
+        timeZone: "America/Chicago",
+        month: "short",
+        day: "numeric",
+        year: "2-digit",
+      });
+    } catch {
+      return "";
+    }
+  }
+  function formatStampTime(ts) {
+    try {
+      return new Date(ts).toLocaleTimeString("en-US", {
+        timeZone: "America/Chicago",
+        hour: "numeric",
+        minute: "2-digit",
+      });
+    } catch {
+      return "";
+    }
+  }
+  function waxSealSvg(bar, rec, uid) {
+    const paid = rec && rec.paidBtc;
+    const crypto = Boolean(bar.crypto);
+    const spec = bar.spectrum || "casual";
+    const ring = {
+      sloppy: "#c45c4e",
+      dive: "#b8734a",
+      casual: "#c4a05a",
+      craft: "#6a9e92",
+      upscale: "#a89f8f",
+      jacket: "#e8941a",
+    }[spec] || "#c4a05a";
+    const date = rec ? formatStampDate(rec.at) : "";
+    const gid = `wg-${bar.id}-${uid || (paid ? "p" : "n")}-${rec ? rec.at : 0}`;
+    if (paid) {
+      return `<svg class="wax-svg paid" viewBox="0 0 80 80" aria-hidden="true">
+        <defs>
+          <radialGradient id="${gid}" cx="35%" cy="30%">
+            <stop offset="0%" stop-color="#ffe0a0"/>
+            <stop offset="55%" stop-color="#f7931a"/>
+            <stop offset="100%" stop-color="#8a4a00"/>
+          </radialGradient>
+        </defs>
+        <circle cx="40" cy="40" r="36" fill="url(#${gid})" stroke="#ffd27a" stroke-width="2"/>
+        <circle cx="40" cy="40" r="30" fill="none" stroke="rgba(26,16,5,0.35)" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <text x="40" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1005" font-family="Georgia,serif">₿</text>
+        <text x="40" y="52" text-anchor="middle" font-size="7" letter-spacing="1.5" fill="#1a1005" font-family="system-ui,sans-serif">PAID</text>
+        <text x="40" y="64" text-anchor="middle" font-size="6" fill="rgba(26,16,5,0.7)" font-family="system-ui,sans-serif">${date}</text>
+      </svg>`;
+    }
+    const mark = crypto ? "₿" : "ATX";
+    const fill0 = crypto ? "#ffb84d" : "#a83a2a";
+    const fill1 = crypto ? "#f7931a" : "#8b2e1f";
+    const fill2 = crypto ? "#b86a00" : "#4a150e";
+    const ink = crypto ? "#1a1005" : "#f3ead7";
+    return `<svg class="wax-svg${crypto ? " crypto" : ""}" viewBox="0 0 80 80" aria-hidden="true">
+      <defs>
+        <radialGradient id="${gid}" cx="35%" cy="28%">
+          <stop offset="0%" stop-color="${fill0}"/>
+          <stop offset="55%" stop-color="${fill1}"/>
+          <stop offset="100%" stop-color="${fill2}"/>
+        </radialGradient>
+      </defs>
+      <circle cx="40" cy="40" r="36" fill="url(#${gid})" stroke="${ring}" stroke-width="2.5"/>
+      <circle cx="40" cy="40" r="29" fill="none" stroke="rgba(243,234,215,0.25)" stroke-width="1"/>
+      <path d="M40 12 L42 18 L40 17 L38 18 Z" fill="rgba(243,234,215,0.35)"/>
+      <text x="40" y="38" text-anchor="middle" font-size="${crypto ? 16 : 11}" font-weight="700" fill="${ink}" font-family="Georgia,serif">${mark}</text>
+      <text x="40" y="52" text-anchor="middle" font-size="6.5" letter-spacing="0.5" fill="${ink}" opacity="0.85" font-family="system-ui,sans-serif">${(SPECTRUM_LABEL[spec] || spec).toUpperCase()}</text>
+      <text x="40" y="64" text-anchor="middle" font-size="6" fill="${ink}" opacity="0.65" font-family="system-ui,sans-serif">${date}</text>
+    </svg>`;
   }
   function levelInfo() {
     const n = stampCount();
@@ -144,20 +251,26 @@
     }
     const sub = $("#passportSub");
     if (sub) {
-      sub.textContent = info.count
-        ? `${info.count} wax seal${info.count === 1 ? "" : "s"} in your book.`
-        : "Collect wax seals as you hop.";
+      const btcN = btcPaidCount();
+      if (!info.count) sub.textContent = "Collect wax seals as you hop.";
+      else if (btcN)
+        sub.textContent = `${info.count} seal${info.count === 1 ? "" : "s"} · ${btcN} paid in ₿`;
+      else sub.textContent = `${info.count} wax seal${info.count === 1 ? "" : "s"} in your book.`;
     }
   }
 
-  function playStampBurst(label) {
+  function playStampBurst(bar, rec) {
     const el = $("#stampBurst");
-    el.textContent = "Stamped";
-    el.classList.remove("go");
+    el.classList.remove("go", "btc-paid");
+    el.innerHTML = waxSealSvg(bar, rec || { at: Date.now(), paidBtc: false });
+    if (rec && rec.paidBtc) el.classList.add("btc-paid");
     void el.offsetWidth;
     el.classList.add("go");
     clearTimeout(playStampBurst._t);
-    playStampBurst._t = setTimeout(() => el.classList.remove("go"), 750);
+    playStampBurst._t = setTimeout(() => {
+      el.classList.remove("go", "btc-paid");
+      el.innerHTML = "";
+    }, 900);
   }
 
   // Geo fence for stamps — past the doors / at the bar — tighter than sidewalk
@@ -242,13 +355,39 @@
       }
     }
 
-    state.stamps[id] = Date.now();
-    saveStamps();
+    setStamp(id, { at: Date.now(), paidBtc: false });
+    const rec = stampRecord(id);
     updateXp();
     if (!silent) {
-      playStampBurst(bar.name);
+      playStampBurst(bar, rec);
       toast(demoGeo ? `Stamped · ${bar.name} (demo)` : `Stamped · ${bar.name}`);
+      if (bar.crypto) {
+        // brief beat then prompt for BTC-paid special seal
+        setTimeout(() => offerBtcPaid(id), 700);
+      }
     }
+    render();
+  }
+
+  function offerBtcPaid(id) {
+    const bar = barById(id);
+    if (!bar || !bar.crypto || stampPaidBtc(id)) return;
+    const sheet = $("#btcPaySheet");
+    if (!sheet) return;
+    sheet.hidden = false;
+    sheet.dataset.barId = id;
+    const nameEl = $("#btcPayName");
+    if (nameEl) nameEl.textContent = bar.name;
+  }
+
+  function markPaidBtc(id) {
+    const bar = barById(id);
+    if (!bar || !isStamped(id)) return;
+    setStamp(id, { paidBtc: true });
+    playStampBurst(bar, stampRecord(id));
+    toast(`₿ seal · ${bar.name}`);
+    const sheet = $("#btcPaySheet");
+    if (sheet) sheet.hidden = true;
     render();
   }
 
@@ -546,21 +685,35 @@
   function renderPassport() {
     updateXp();
     const grid = $("#stampGrid");
+    const detail = $("#stampDetail");
     const stamped = Object.keys(state.stamps)
-      .map((id) => ({ id, t: state.stamps[id], bar: barById(id) }))
-      .filter((x) => x.bar)
-      .sort((a, b) => b.t - a.t);
+      .map((id) => ({ id, rec: stampRecord(id), bar: barById(id) }))
+      .filter((x) => x.bar && x.rec)
+      .sort((a, b) => b.rec.at - a.rec.at);
+
+    const stats = $("#passportStats");
+    if (stats) {
+      const cryptoStops = stamped.filter((s) => s.bar.crypto).length;
+      const paid = stamped.filter((s) => s.rec.paidBtc).length;
+      stats.innerHTML = `
+        <span><strong>${stamped.length}</strong> seals</span>
+        <span><strong>${cryptoStops}</strong> crypto stops</span>
+        <span class="btc-stat"><strong>${paid}</strong> paid in ₿</span>`;
+    }
 
     const ghosts = Math.max(6, 12 - stamped.length);
     const slots = [];
 
     stamped.forEach((s) => {
+      const paid = s.rec.paidBtc;
       slots.push(`
-        <div class="stamp-slot filled ${s.bar.crypto ? "crypto" : ""}" title="${escapeHtml(s.bar.name)}">
+        <button type="button" class="stamp-slot filled ${s.bar.crypto ? "crypto" : ""} ${paid ? "btc-paid" : ""}" data-stamp-detail="${s.id}" title="${escapeHtml(s.bar.name)}">
           ${s.bar.partner ? `<span class="partner-dot" title="On Board"></span>` : ""}
-          <div class="wax">${s.bar.crypto ? "₿" : "ATX"}</div>
+          ${paid ? `<span class="btc-paid-badge">₿</span>` : ""}
+          <div class="wax">${waxSealSvg(s.bar, s.rec)}</div>
           <div class="name">${escapeHtml(s.bar.name)}</div>
-        </div>`);
+          <div class="stamp-meta">${escapeHtml(formatStampDate(s.rec.at))}${paid ? " · ₿" : ""}</div>
+        </button>`);
     });
     for (let i = 0; i < ghosts; i++) {
       slots.push(`
@@ -570,6 +723,43 @@
         </div>`);
     }
     grid.innerHTML = slots.join("");
+
+    if (detail && !state.viewingStampId) {
+      detail.hidden = true;
+      detail.innerHTML = "";
+    } else if (detail && state.viewingStampId) {
+      renderStampDetail(state.viewingStampId);
+    }
+  }
+
+  function renderStampDetail(id) {
+    const detail = $("#stampDetail");
+    const bar = barById(id);
+    const rec = stampRecord(id);
+    if (!detail || !bar || !rec) return;
+    detail.hidden = false;
+    const paid = rec.paidBtc;
+    detail.innerHTML = `
+      <button type="button" class="back-btn" id="stampDetailBack" aria-label="Back">←</button>
+      <div class="stamp-detail-seal">${waxSealSvg(bar, rec)}</div>
+      <h3 class="stamp-detail-title">${escapeHtml(bar.name)}</h3>
+      <p class="stamp-detail-when">${escapeHtml(formatStampDate(rec.at))} · ${escapeHtml(formatStampTime(rec.at))} CT</p>
+      <p class="stamp-detail-meta">${escapeHtml(bar.area)} · ${escapeHtml(SPECTRUM_LABEL[bar.spectrum] || bar.spectrum)}${bar.partner ? " · On Board" : ""}</p>
+      <p class="stamp-detail-about">${escapeHtml(bar.about || bar.vibe || "")}</p>
+      <div class="btn-row">
+        ${bar.crypto && !paid ? `<button type="button" class="btn primary" data-mark-btc="${bar.id}">Paid in ₿</button>` : ""}
+        ${paid ? `<span class="btc-paid-note">Special ₿ seal unlocked</span>` : ""}
+        <a class="btn" href="${mapsUrl(bar)}" target="_blank" rel="noopener">Maps</a>
+        ${bar.website ? `<a class="btn" href="${escapeHtml(bar.website)}" target="_blank" rel="noopener">Website</a>` : ""}
+      </div>`;
+    const back = $("#stampDetailBack");
+    if (back) {
+      back.onclick = () => {
+        state.viewingStampId = null;
+        detail.hidden = true;
+        detail.innerHTML = "";
+      };
+    }
   }
 
   function ensureMap() {
@@ -903,6 +1093,22 @@
         return;
       }
 
+      const stampDetail = e.target.closest("[data-stamp-detail]");
+      if (stampDetail) {
+        e.stopPropagation();
+        state.viewingStampId = stampDetail.dataset.stampDetail;
+        setScreen("passport");
+        renderStampDetail(state.viewingStampId);
+        return;
+      }
+
+      const markBtc = e.target.closest("[data-mark-btc]");
+      if (markBtc) {
+        e.stopPropagation();
+        markPaidBtc(markBtc.dataset.markBtc);
+        return;
+      }
+
       const stamp = e.target.closest("[data-stamp]");
       if (stamp) {
         e.stopPropagation();
@@ -969,6 +1175,21 @@
     });
 
     window.__atxStamp = (id) => { stampBar(id); };
+
+    const btcYes = $("#btcPayYes");
+    const btcNo = $("#btcPayNo");
+    if (btcYes) {
+      btcYes.addEventListener("click", () => {
+        const id = $("#btcPaySheet") && $("#btcPaySheet").dataset.barId;
+        if (id) markPaidBtc(id);
+      });
+    }
+    if (btcNo) {
+      btcNo.addEventListener("click", () => {
+        const sheet = $("#btcPaySheet");
+        if (sheet) sheet.hidden = true;
+      });
+    }
   }
 
   async function init() {
