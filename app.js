@@ -357,6 +357,7 @@
         </article>`;
       })
       .join("");
+    if (window.__atxSyncExploreChrome) window.__atxSyncExploreChrome();
   }
 
   function renderHunts() {
@@ -573,11 +574,17 @@
     state.screen = name;
     $$(".hud-btn").forEach((b) => b.classList.toggle("on", b.dataset.nav === name));
     $$(".screen").forEach((s) => s.classList.toggle("on", s.dataset.screen === name));
+    if (name !== "explore") {
+      document.querySelector(".app")?.classList.remove("explore-scrolled");
+      const compact = $("#exploreCompact");
+      if (compact) compact.hidden = true;
+    }
     if (name === "map") {
       ensureMap();
       updateMapMarkers();
     }
     render();
+    if (window.__atxSyncExploreChrome) window.__atxSyncExploreChrome();
   }
 
   function render() {
@@ -597,6 +604,41 @@
     try {
       localStorage.setItem(ETH_KEY, on ? "1" : "0");
     } catch {}
+  }
+
+  function bindExploreChrome() {
+    const screen = $("#screen-explore");
+    const controls = $("#exploreControls") || $(".explore-controls");
+    const compact = $("#exploreCompact");
+    if (!screen || !controls || !compact) return;
+
+    const sync = () => {
+      if (state.screen !== "explore") {
+        compact.hidden = true;
+        document.querySelector(".app")?.classList.remove("explore-scrolled");
+        return;
+      }
+      const cRect = controls.getBoundingClientRect();
+      const sRect = screen.getBoundingClientRect();
+      // Controls have scrolled up out of the visible screen top
+      const collapsed = cRect.bottom < sRect.top + 12;
+      compact.hidden = !collapsed;
+      document.querySelector(".app")?.classList.toggle("explore-scrolled", collapsed);
+      const meta = $("#compactMeta");
+      const count = $("#countMeta");
+      if (meta && count) meta.textContent = count.textContent || "";
+    };
+
+    screen.addEventListener("scroll", sync, { passive: true });
+    compact.addEventListener("click", () => {
+      screen.scrollTo({ top: 0, behavior: "smooth" });
+      // ensure chrome expands after scroll settles
+      setTimeout(sync, 320);
+    });
+
+    // Re-sync after list re-renders
+    const _renderExplore = typeof renderExplore === "function" ? null : null;
+    window.__atxSyncExploreChrome = sync;
   }
 
   function bindEvents() {
@@ -743,6 +785,7 @@
     setEth(ethOn);
 
     bindEvents();
+    bindExploreChrome();
     updateXp();
     const screenParam = new URLSearchParams(location.search).get("screen");
     if (screenParam && ["explore", "hunts", "passport", "map"].includes(screenParam)) {

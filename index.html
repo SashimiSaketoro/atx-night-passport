@@ -40,7 +40,13 @@
     <main class="screens">
       <!-- EXPLORE -->
       <section class="screen on" id="screen-explore" data-screen="explore">
-        <div class="explore-controls">
+        <button type="button" class="explore-compact" id="exploreCompact" hidden aria-label="Show filters and search">
+          <span class="compact-seal" aria-hidden="true">ATX</span>
+          <span class="compact-label">Filters · Search</span>
+          <span class="compact-meta" id="compactMeta"></span>
+          <span class="compact-chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="explore-controls" id="exploreControls">
           <div class="search-wrap">
             <input type="search" id="search" class="search" placeholder="Search bars, streets, vibes…" autocomplete="off" />
           </div>
