@@ -1950,7 +1950,7 @@
     "cryptoMethods": "BTC Lightning",
     "id": "saturn",
     "partner": true,
-    "about": "Congress Ave bar/brewery — Lightning BTC accepted. Crypto-friendly hop on the corridor.",
+    "about": "Congress brewery. LN.",
     "website": ""
   },
   {
@@ -3286,7 +3286,7 @@
     "area": "East 11th",
     "address": "1104 E 11th St",
     "cluster": "East 11th",
-    "vibe": "Elevated East 11th sipping — quieter craft than downtown dens.",
+    "vibe": "East 11th sipping — quieter than downtown dens.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -3296,7 +3296,7 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": false,
-    "about": "Elevated East 11th sipping — quieter craft than downtown dens.",
+    "about": "East 11th sipping — quieter than downtown dens.",
     "website": ""
   },
   {
@@ -4095,7 +4095,7 @@
     "area": "Red River / E 7th",
     "address": "519 E 7th St",
     "cluster": "Red River / 7th",
-    "vibe": "Late Mediterranean wraps on E 7th by the Red River cluster. Lightning on the Austin BTC map — confirm tonight.",
+    "vibe": "Late wraps on E 7th. LN. Toward 3am if the window's still up.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4110,7 +4110,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Downtown shawarma truck by the Red River / 7th cluster. Bitcoin Cities lists Lightning; their site claims late nights (often toward 3am Tue–Sat) — confirm at the window. A Rainey cart is advertised separately; this pin is the E 7th late stop.",
+    "about": "Red River late truck. LN. Site says toward 3am Tue–Sat — ask at the window.",
     "website": "https://www.shawarmapoint.net/"
   },
   {
@@ -4120,7 +4120,7 @@
     "area": "Seaholm / W 5th",
     "address": "817 W 5th St",
     "cluster": "Seaholm / W 5th",
-    "vibe": "Seaholm-adjacent burrito trailer — LN + BTC on the directory. Night-fuel west of Warehouse.",
+    "vibe": "Seaholm burrito trailer. LN + BTC.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4135,7 +4135,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Burrito / taco trailer at 817 W 5th (shared lot with Austin's Habibi). Bitcoin Cities lists Lightning + on-chain. Site lists this stop plus The Water Tank on McNeil — this pin is the central W 5th kitchen.",
+    "about": "W 5th trailer next to Habibi. LN. West of Warehouse when you need a wrap.",
     "website": "https://ilovesuperburrito.com/"
   },
   {
@@ -4145,7 +4145,7 @@
     "area": "Rainey",
     "address": "75 Rainey St",
     "cluster": "Rainey",
-    "vibe": "Venezuelan sandwiches on the Rainey truck strip — still on the Bitcoin directory; ask before you count on sats.",
+    "vibe": "Rainey Venezuelan sandwiches. Directory-listed; ask before you tap.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4161,7 +4161,7 @@
     "crypto": true,
     "cryptoMethods": "Directory-listed (ask)",
     "partner": false,
-    "about": "Still listed on Bitcoin Cities at 75 Rainey, but without a current LN/BTC tag and with a years-old check-in. Site still points here. Soft listing — ask at the window; don't plan a tab on crypto.",
+    "about": "75 Rainey, next to Half Step. Still on Bitcoin Cities without a current LN tag. Ask — don't plan a tab on sats.",
     "website": "https://mrsandwichtx.com/"
   },
   {
@@ -4171,7 +4171,7 @@
     "area": "UT Drag",
     "address": "2712 Guadalupe St",
     "cluster": "UT Drag",
-    "vibe": "Campus shawarma and kebabs on the Drag — LN + BTC listed, late-ish kitchen near West Campus hops.",
+    "vibe": "Drag shawarma. LN. Late-ish, not last call.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4185,7 +4185,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Guadalupe / Drag location. Bitcoin Cities lists Lightning + on-chain. Directory hours run into late evening — confirm tonight rather than treating it as last-call.",
+    "about": "Guadalupe / Drag. LN. Open late-ish — confirm before you treat it as last call.",
     "website": "https://thehalalbros.com/"
   },
   {
@@ -4195,7 +4195,7 @@
     "area": "S Lamar / soft south",
     "address": "4211 S Lamar Blvd",
     "cluster": "S Lamar (Uber soft edge)",
-    "vibe": "South Lamar Halal Bros — same LN + BTC listing, Uber-out kitchen when downtown is cooked.",
+    "vibe": "S Lamar shawarma. LN. Uber-out kitchen.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": true,
@@ -4209,7 +4209,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "S Lamar kitchen in the 4211 strip. Bitcoin Cities lists Lightning + on-chain. Soft-south fuel — not a downtown hop.",
+    "about": "4211 S Lamar. LN. Soft-south fuel, not a downtown hop.",
     "website": "https://thehalalbros.com/"
   },
   {
@@ -4219,7 +4219,7 @@
     "area": "East Cesar Chavez",
     "address": "2324 E Cesar Chavez St",
     "cluster": "E Cesar Chavez",
-    "vibe": "East Cesar vegan taco park — LN + BTC on the map, kitchen next to the Holly bar crawl.",
+    "vibe": "East Cesar vegan tacos. LN. Next to the Holly crawl.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4234,7 +4234,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Plant-based Tex-Mex trailer at the East Cesar food park (near Lovebirds). Bitcoin Cities lists Lightning + on-chain. Directory lists evening hours — confirm before a last-call run.",
+    "about": "Trailer at the East Cesar food park. LN. Evening hours — confirm before last call.",
     "website": "https://thevegannom.com/"
   },
   {
@@ -4244,7 +4244,7 @@
     "area": "Burnet / North Loop",
     "address": "5000 Burnet Rd",
     "cluster": "Burnet (Uber north)",
-    "vibe": "Sourdough pizza-roll truck on Burnet — LN + BTC listed; late-weekend kitchen up north.",
+    "vibe": "Burnet pizza-roll truck. LN. Later Fri/Sat if they stay.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": true,
@@ -4259,7 +4259,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Pizza-roll trailer at 5000 Burnet. Bitcoin Cities lists Lightning + on-chain. Their site advertises later Friday/Saturday service — treat hours as claimed, not guaranteed.",
+    "about": "5000 Burnet. LN. Site claims later Fri/Sat — treat hours as claimed.",
     "website": "https://www.rockinrollsatx.com/"
   },
   {
@@ -4269,7 +4269,7 @@
     "area": "UT / West Campus",
     "address": "620 W 29th St",
     "cluster": "West Campus / 29th",
-    "vibe": "West Campus late market — snacks, drinks, occasional DIY shows. LN + BTC on the directory.",
+    "vibe": "West Campus late market. LN. Snacks, not a kitchen.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4283,7 +4283,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Corner market on W 29th — late retail/fuel for West Campus, not a bar kitchen. Bitcoin Cities lists Lightning + on-chain. Directory lists late evening hours; DIY sets some nights.",
+    "about": "W 29th corner store. LN. Late retail for West Campus; DIY sets some nights.",
     "website": ""
   },
   {
@@ -4293,7 +4293,7 @@
     "area": "East MLK",
     "address": "1901 E MLK Jr Blvd",
     "cluster": "East MLK",
-    "vibe": "Color-tortilla taco truck on E MLK — LN + BTC listed. Morning/midday kitchen across from The Wheel.",
+    "vibe": "E MLK taco truck. LN. Morning/midday — not last call.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": true,
@@ -4307,7 +4307,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Taco truck at 1901 E MLK (across from The Wheel). Bitcoin Cities lists Lightning + on-chain and weekday morning/midday hours — not last-call fuel.",
+    "about": "Across from The Wheel. LN. Weekday morning/midday. Not last-call fuel.",
     "website": "https://www.elxolotacos.com/"
   },
   {
@@ -4317,7 +4317,7 @@
     "area": "SoCo",
     "address": "2118 S Congress Ave",
     "cluster": "South Congress",
-    "vibe": "SoCo juice trailer — LN + BTC on the directory. Day-browse kitchen, not a last-call stop.",
+    "vibe": "SoCo juice trailer. LN. Day hours.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": true,
@@ -4331,7 +4331,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Juice / roots trailer on South Congress. Bitcoin Cities lists Lightning + on-chain and daytime hours. Pin it for SoCo BTC browsing, not after-hours bar food.",
+    "about": "S Congress juice truck. LN. Day-browse, not after-hours bar food.",
     "website": ""
   },
   {
@@ -4341,7 +4341,7 @@
     "area": "Congress / Brazos",
     "address": "800 Brazos St Suite 260",
     "cluster": "Congress / Brazos",
-    "vibe": "Downtown Bitcoin hackerspace — LN + BTC listed. Day-browse community pin, not a kitchen.",
+    "vibe": "Downtown bitcoin hackerspace. LN. Day stamp.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4354,7 +4354,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Builder / hackerspace at 800 Brazos Suite 260. Bitcoin Cities lists Lightning + on-chain. Community stop for day-browse stamps — not night-fuel.",
+    "about": "800 Brazos, Suite 260. LN. Builder floor — not a kitchen.",
     "website": "https://pleblab.dev"
   },
   {
@@ -4364,7 +4364,7 @@
     "area": "Congress",
     "address": "601 Congress Ave Suite 250",
     "cluster": "Congress corridor",
-    "vibe": "Littlefield Building bitcoin coworking + meetups — LN + BTC listed. Day-browse above 6th & Congress.",
+    "vibe": "Littlefield coworking + meetups. LN. Above 6th & Congress.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4377,7 +4377,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Coworking / event floor in the Littlefield Building (often Suite 250; Bitcoin Park events also land here). Bitcoin Cities lists Lightning + on-chain and weekday hours. Community pin, not a kitchen.",
+    "about": "601 Congress, Suite 250. LN. Weekday community floor, not a kitchen.",
     "website": "https://bitcoincommons.com/"
   },
   {
@@ -4387,7 +4387,7 @@
     "area": "S Lamar / soft south",
     "address": "1100 S Lamar Blvd",
     "cluster": "S Lamar / Lamar Union",
-    "vibe": "Craft coffee at Lamar Union — LN + BTC on the directory. Day-browse cafe, not night-fuel.",
+    "vibe": "Lamar Union coffee. LN. Day cafe.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": true,
@@ -4400,7 +4400,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Medici cafe in the 1100 S Lamar / Lamar Union block (near Tiki Tatsu-Ya). Bitcoin Cities lists Lightning + on-chain. Coffee hours — not a last-call kitchen.",
+    "about": "1100 S Lamar. LN. Coffee hours — not last-call kitchen.",
     "website": "https://mediciroasting.com/"
   },
   {
@@ -4410,7 +4410,7 @@
     "area": "UT Drag",
     "address": "2222 Guadalupe St",
     "cluster": "UT Drag",
-    "vibe": "Campus Medici on Guadalupe — LN + BTC listed. Day-browse coffee south of Hole in the Wall.",
+    "vibe": "Drag coffee. LN. South of Hole in the Wall.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4423,7 +4423,7 @@
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
-    "about": "Drag cafe at 2222 Guadalupe. Bitcoin Cities lists Lightning + on-chain. Daytime coffee — not night-fuel.",
+    "about": "2222 Guadalupe. LN. Daytime coffee, not night-fuel.",
     "website": "https://mediciroasting.com/"
   }
 ]

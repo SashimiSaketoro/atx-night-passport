@@ -516,6 +516,27 @@ body {
 
 /* —— Missions / Hunts —— */
 .section-intro { margin-bottom: 14px; }
+.section-kicker,
+.poh-kicker {
+  margin: 0 0 2px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  color: var(--btc);
+}
+.poh-kicker { margin: 2px 0 0; font-size: 12px; }
+.circuit-hint {
+  margin: 6px 2px 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--btc);
+  letter-spacing: 0.03em;
+}
+.circuit-hint[hidden] { display: none; }
 .section-intro h2 {
   margin: 0;
   font-family: var(--serif);
@@ -1144,6 +1165,11 @@ body.gaydar-mode .passport-mast {
   background:
     linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #24408e, #732982) bottom / 100% 3px no-repeat,
     linear-gradient(180deg, rgba(40, 8, 30, 0.95), transparent);
+}
+body.gaydar-mode .section-kicker,
+body.gaydar-mode .poh-kicker,
+body.gaydar-mode .circuit-hint {
+  color: #ffc4de;
 }
 body.gaydar-mode .brand {
   color: #fff;

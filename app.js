@@ -15,7 +15,7 @@
     { min: 3, name: "Night Owl" },
     { min: 8, name: "Regular" },
     { min: 15, name: "Stamp Collector" },
-    { min: 25, name: "Passport Pro" },
+    { min: 25, name: "Inked" },
     { min: 40, name: "ATX Legend" },
   ];
   const STAMPS_KEY = "atx-passport-stamps-v1";
@@ -253,10 +253,10 @@
     const sub = $("#passportSub");
     if (sub) {
       const btcN = btcPaidCount();
-      if (!info.count) sub.textContent = "Collect wax seals as you hop.";
+      if (!info.count) sub.textContent = "Wax seals for stops you've actually been inside.";
       else if (btcN)
         sub.textContent = `${info.count} seal${info.count === 1 ? "" : "s"} · ${btcN} paid in ₿`;
-      else sub.textContent = `${info.count} wax seal${info.count === 1 ? "" : "s"} in your book.`;
+      else sub.textContent = `${info.count} seal${info.count === 1 ? "" : "s"}.`;
     }
   }
 
@@ -318,7 +318,7 @@
 
   function listStampBtn(bar, stamped) {
     const paid = stamped && stampPaidBtc(bar.id);
-    const label = stamped ? (paid ? "Sealed · paid in Bitcoin" : "Sealed") : "Collect wax seal";
+    const label = stamped ? (paid ? "Sealed · ₿" : "Sealed") : "Get seal";
     const cls = `stamp-btn ${stamped ? "stamped" : "empty"}${paid ? " btc-paid" : ""}`;
     if (stamped) {
       const mark = paid ? "₿" : "ATX";
@@ -470,10 +470,10 @@
   function fuelBadges(bar) {
     const flags = barFlags(bar);
     const bits = [];
-    if (flags.includes("night-fuel")) bits.push(`<span class="dossier-fuel" title="Late kitchen / night fuel">Kitchen</span>`);
-    else if (flags.includes("kitchen")) bits.push(`<span class="dossier-kitchen" title="Food stop — not last-call">Food</span>`);
-    if (flags.includes("food-truck")) bits.push(`<span class="dossier-truck" title="Food truck">Truck</span>`);
-    if (flags.includes("community")) bits.push(`<span class="dossier-community" title="Bitcoin community space">Community</span>`);
+    if (flags.includes("night-fuel")) bits.push(`<span class="dossier-fuel" title="Late kitchen">Kitchen</span>`);
+    else if (flags.includes("kitchen")) bits.push(`<span class="dossier-kitchen" title="Food — not last call">Food</span>`);
+    else if (flags.includes("food-truck")) bits.push(`<span class="dossier-truck" title="Food truck">Truck</span>`);
+    if (flags.includes("community")) bits.push(`<span class="dossier-community" title="Bitcoin shop / workspace">Community</span>`);
     return bits.join("");
   }
 
@@ -606,13 +606,26 @@
     } else if (state.kitchenOnly) {
       $("#countMeta").textContent = `${bars.length} kitchen`;
     } else {
-      $("#countMeta").textContent = `${bars.length} entries · ${cryptoCount}₿ · ${fuelCount} kitchen`;
+      $("#countMeta").textContent = `${bars.length} · ${cryptoCount}₿ · ${fuelCount} kitchen`;
+    }
+
+    const hint = $("#circuitHint");
+    if (hint) {
+      if (state.kitchenOnly && state.cryptoOnly) {
+        hint.hidden = false;
+        hint.textContent = "Night fuel on LN · Proof of Hop";
+      } else if (state.kitchenOnly) {
+        hint.hidden = false;
+        hint.textContent = "Late kitchens · Proof of Hop";
+      } else {
+        hint.hidden = true;
+      }
     }
 
     if (!bars.length) {
       const emptyMsg = state.maxDistanceM && state.userLoc
-        ? "Nothing in that distance — try a wider radius."
-        : "No entries match these filters.";
+        ? "Nothing that close. Widen the radius."
+        : "Nothing matches.";
       list.innerHTML = `<div class="empty-state">${emptyMsg}</div>`;
       return;
     }
@@ -680,6 +693,7 @@
             <button type="button" class="back-btn" id="huntBack" aria-label="Back">←</button>
             <div>
               <div class="mission-diff" style="color:${escapeHtml(hunt.accent || "#c4a05a")}">${escapeHtml(hunt.difficulty)} · ${prog.done}/${prog.total}</div>
+              ${hunt.hop ? `<p class="poh-kicker">Proof of Hop</p>` : ""}
               <h2>${escapeHtml(hunt.title)}</h2>
               <p class="tagline">${escapeHtml(hunt.tagline)}</p>
             </div>
@@ -805,7 +819,7 @@
       <p class="stamp-detail-about">${escapeHtml(bar.about || bar.vibe || "")}</p>
       <div class="btn-row">
         ${bar.crypto && !paid ? `<button type="button" class="btn primary" data-mark-btc="${bar.id}">Paid in ₿</button>` : ""}
-        ${paid ? `<span class="btc-paid-note">Special ₿ seal unlocked</span>` : ""}
+        ${paid ? `<span class="btc-paid-note">₿ seal · paid</span>` : ""}
         <a class="btn" href="${mapsUrl(bar)}" target="_blank" rel="noopener">Maps</a>
         ${bar.website ? `<a class="btn" href="${escapeHtml(bar.website)}" target="_blank" rel="noopener">Website</a>` : ""}
       </div>`;
@@ -1298,6 +1312,6 @@
 
   init().catch((err) => {
     console.error(err);
-    $("#barList").innerHTML = `<div class="empty-state">Failed to load passport data.</div>`;
+    $("#barList").innerHTML = `<div class="empty-state">Couldn't load the roster.</div>`;
   });
 })();

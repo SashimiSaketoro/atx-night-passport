@@ -1,7 +1,7 @@
 {
   "name": "ATX Night Passport",
   "short_name": "ATX Passport",
-  "description": "Stamp partner bars, run scavenger hunts, and collect your Austin nightlife seals.",
+  "description": "Wax seals for Austin stops you've actually been inside.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

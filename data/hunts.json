@@ -2,7 +2,8 @@
   {
     "id": "spectrum-run",
     "title": "Spectrum Run",
-    "tagline": "One stamp per dress code — from sticky floors to jacket required.",
+    "tagline": "One stamp per dress code — sticky floors to jacket.",
+    "hop": true,
     "difficulty": "Medium",
     "reward": "Full Spectrum Seal",
     "accent": "#c4a05a",
@@ -32,7 +33,8 @@
   {
     "id": "lightning-round",
     "title": "Lightning Round",
-    "tagline": "Follow the orange seal. Satoshi drinks here.",
+    "tagline": "Orange seals. Satoshi drinks here.",
+    "hop": true,
     "difficulty": "Hard",
     "reward": "₿ Night Seal",
     "accent": "#f7931a",
@@ -61,7 +63,8 @@
   {
     "id": "east-side-cipher",
     "title": "East Side Cipher",
-    "tagline": "Decode the east-of-35 trail — dive to honky-tonk.",
+    "tagline": "East of 35. Dive to honky-tonk.",
+    "hop": true,
     "difficulty": "Medium",
     "reward": "East Cipher Mark",
     "accent": "#6a9e92",
@@ -91,7 +94,8 @@
   {
     "id": "jacket-optional",
     "title": "Jacket Optional",
-    "tagline": "Reservation dens, hidden doors, whispered passwords.",
+    "tagline": "Hidden doors. Reservations. Whispered passwords.",
+    "hop": true,
     "difficulty": "Hard",
     "reward": "Velvet Rope Seal",
     "accent": "#e8941a",
@@ -121,7 +125,8 @@
   {
     "id": "fourth-street-pulse",
     "title": "Fourth Street Pulse",
-    "tagline": "Warehouse heartbeat. Follow the pulse after midnight.",
+    "tagline": "Warehouse after midnight. Start at Oilcan.",
+    "hop": true,
     "difficulty": "Easy",
     "reward": "Pulse Ribbon",
     "accent": "#c45c8a",
