@@ -318,7 +318,7 @@
 
   function listStampBtn(bar, stamped) {
     const paid = stamped && stampPaidBtc(bar.id);
-    const label = stamped ? (paid ? "Sealed · ₿" : "Sealed") : "Get seal";
+    const label = stamped ? (paid ? "Sealed · paid in Bitcoin" : "Sealed") : "Get seal";
     const cls = `stamp-btn ${stamped ? "stamped" : "empty"}${paid ? " btc-paid" : ""}`;
     if (stamped) {
       const mark = paid ? "₿" : "ATX";
@@ -819,7 +819,7 @@
       <p class="stamp-detail-about">${escapeHtml(bar.about || bar.vibe || "")}</p>
       <div class="btn-row">
         ${bar.crypto && !paid ? `<button type="button" class="btn primary" data-mark-btc="${bar.id}">Paid in ₿</button>` : ""}
-        ${paid ? `<span class="btc-paid-note">₿ seal · paid</span>` : ""}
+        ${paid ? `<span class="btc-paid-note">Sealed · paid in Bitcoin</span>` : ""}
         <a class="btn" href="${mapsUrl(bar)}" target="_blank" rel="noopener">Maps</a>
         ${bar.website ? `<a class="btn" href="${escapeHtml(bar.website)}" target="_blank" rel="noopener">Website</a>` : ""}
       </div>`;
