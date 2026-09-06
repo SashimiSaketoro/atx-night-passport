@@ -77,9 +77,7 @@
     "gaydar": "hard",
     "musicAnchor": false,
     "softEdge": false,
-    "flags": [
-      "verify"
-    ],
+    "flags": [],
     "lat": 30.2695,
     "lng": -97.7365,
     "crypto": false,
@@ -168,9 +166,7 @@
     "gaydar": "soft",
     "musicAnchor": false,
     "softEdge": false,
-    "flags": [
-      "verify"
-    ],
+    "flags": [],
     "lat": 30.268,
     "lng": -97.737,
     "crypto": false,
@@ -268,7 +264,7 @@
     "cryptoMethods": "",
     "partner": false,
     "about": "Giant mason-jar Long Islands and dance-floor chaos — name says the assignment.",
-    "website": ""
+    "website": "https://www.peckerheadson6th.com/"
   },
   {
     "id": "petes-dueling-piano-bar",
@@ -335,29 +331,6 @@
     "partner": false,
     "about": "East 6th patio dive with rooftop neon and free pool — zero pretension, Golden Castle truck out back. Slackers welcome.",
     "website": "https://shangrilaaustin.com/"
-  },
-  {
-    "id": "shipwreckd-pirate-bar",
-    "name": "Shipwreck'd Pirate Bar",
-    "spectrum": "sloppy",
-    "area": "Warehouse / W 5th",
-    "address": "307 W 5th St",
-    "cluster": "Warehouse / 5th",
-    "vibe": "Immersive pirate pop-up grog inside The Eleanor — themed Warehouse chaos.",
-    "gaydar": "none",
-    "musicAnchor": false,
-    "softEdge": false,
-    "flags": [
-      "popup",
-      "themed"
-    ],
-    "lat": 30.2682,
-    "lng": -97.7468,
-    "crypto": false,
-    "cryptoMethods": "",
-    "partner": false,
-    "about": "Immersive pirate pop-up grog inside The Eleanor — themed Warehouse chaos.",
-    "website": ""
   },
   {
     "id": "the-library",
@@ -466,7 +439,7 @@
     "cryptoMethods": "",
     "partner": false,
     "about": "Tiny intimate stage — catch the next big thing early. Soft queer-adjacent Red River room.",
-    "website": ""
+    "website": "https://chessclubaustin.com/"
   },
   {
     "id": "drinks-lounge",
@@ -588,7 +561,8 @@
     "softEdge": true,
     "flags": [
       "live-music",
-      "blues"
+      "blues",
+      "ex-skylark"
     ],
     "crypto": false,
     "cryptoMethods": "",
@@ -603,7 +577,7 @@
     "vibe": "Skylark Lounge reborn — blues stage, Soul Sundays, hand-blown glassware from on-site Glassmith. Soft-edge east live-music revival.",
     "lat": 30.2845,
     "lng": -97.708,
-    "about": "Skylark Lounge reborn — blues stage, Soul Sundays, hand-blown glassware from on-site Glassmith. Soft-edge east live-music revival."
+    "about": "Skylark Lounge reborn at 2039 Airport Blvd (opened mid-2026) — blues stage, Soul Sundays with Soul Man Sam, pub food, hand-blown glassware from on-site Glassmith. Soft-edge east live-music hop."
   },
   {
     "id": "hole-in-the-wall",
@@ -670,7 +644,7 @@
     "cryptoMethods": "",
     "partner": false,
     "about": "NYC dive-meets-cocktail transplant open til 2am — east mid-6th nightcap.",
-    "website": ""
+    "website": "https://mothersruinaustin.com/"
   },
   {
     "id": "sahara-lounge",
@@ -787,7 +761,7 @@
     "name": "The Grackle",
     "spectrum": "dive",
     "area": "East 6th",
-    "address": "~1700 E 6th near Chicon",
+    "address": "1700 E 6th St",
     "cluster": "East 6th / Chicon",
     "vibe": "Eastside dive near Chicon — cold beer, no agenda. Soft reset between Whisler's and Hotel Vegas.",
     "gaydar": "none",
@@ -881,10 +855,10 @@
     "area": "Red River",
     "address": "710 Red River St",
     "cluster": "Red River",
-    "vibe": "Beloved Red River dive with 17 years of band stories — building sold; last call expected ~Oct 26 2026. Catch it while walls still talk.",
+    "vibe": "Beloved Red River dive with 17 years of band stories — building sold Aug 2026; lease termination; last day expected Oct 26 2026 (hoping Halloween). Catch it while walls still talk.",
     "lat": 30.2681,
     "lng": -97.7365,
-    "about": "Beloved Red River dive with 17 years of band stories — building sold; last call expected ~Oct 26 2026. Catch it while walls still talk."
+    "about": "Still open as of early Sep 2026 but closing soon: co-owner Seth Levy announced building at 710 Red River sold and new owners invoked 60-day termination; planned last day Oct 26 2026. Keep on roster with closing-soon until actually shuttered."
   },
   {
     "id": "violet-crown-social-club",
@@ -1047,14 +1021,15 @@
     "softEdge": false,
     "flags": [
       "patio",
-      "dj"
+      "dj",
+      "ex-icenhauers"
     ],
     "lat": 30.258,
     "lng": -97.739,
     "crypto": false,
     "cryptoMethods": "",
     "partner": false,
-    "about": "Rainey classic reborn at 83 — yard games, DJs, Sunday Funday, food truck. Back and bigger.",
+    "about": "Rainey classic that closed 2022, reopened March 23 2025 at former Icenhauer's house (83 Rainey) — backyard, DJs, Sunday Funday, food truck. Not the demolished original 92 Rainey building.",
     "website": "https://www.bungalowaustin.com/"
   },
   {
@@ -1283,7 +1258,8 @@
     "flags": [
       "club",
       "latin",
-      "dance"
+      "dance",
+      "ex-cielo"
     ],
     "crypto": false,
     "cryptoMethods": "",
@@ -1298,7 +1274,7 @@
     "vibe": "Latin dance heir to Cielo — reggaeton, bachata, cumbia on Neches. Cover weekends; inherited the old Cielo crowd Oct 2025.",
     "lat": 30.2672,
     "lng": -97.7385,
-    "about": "Latin dance heir to Cielo — reggaeton, bachata, cumbia on Neches. Cover weekends; inherited the old Cielo crowd Oct 2025."
+    "about": "Latin dance club at former Cielo (505 Neches) — same owner Elias Boukarim; grand opening Oct 2025 after Cielo's July 2025 farewell. Cumbia/bachata/reggaeton nights, VIP, late."
   },
   {
     "id": "electric-shuffle",
@@ -1320,26 +1296,6 @@
     "cryptoMethods": "",
     "partner": false,
     "about": "High-energy shuffleboard bar near Rainey/Red River — games-first group night.",
-    "website": ""
-  },
-  {
-    "id": "handlebar",
-    "name": "HandleBar",
-    "spectrum": "casual",
-    "area": "Downtown",
-    "address": "121 E 5th St",
-    "cluster": "5th/Brazos",
-    "vibe": "Downtown dive with a wink near 5th/Brazos — quick pit stop off the Congress corridor.",
-    "gaydar": "none",
-    "musicAnchor": false,
-    "softEdge": false,
-    "flags": [],
-    "lat": 30.267,
-    "lng": -97.742,
-    "crypto": false,
-    "cryptoMethods": "",
-    "partner": false,
-    "about": "Downtown dive with a wink near 5th/Brazos — quick pit stop off the Congress corridor.",
     "website": ""
   },
   {
@@ -1871,10 +1827,10 @@
     "name": "Outer Heaven Disco Club",
     "spectrum": "casual",
     "area": "East Cesar Chavez",
-    "address": "E Cesar Chavez (near De Nada) — confirm pin",
+    "address": "E Cesar Chavez St (near De Nada Cantina) — exact street number TBD",
     "cluster": "East · verify open",
-    "vibe": "Queer DIY disco returning bigger on E Cesar Chavez. Cult floor — verify doors before you Uber.",
-    "about": "Forced out of E 12th in 2025; rebuilding ~4× larger near De Nada on E Cesar Chavez. Karaoke wing + community nights planned. As of mid-2026 still finishing licensing — stamp only when open.",
+    "vibe": "Queer DIY disco returning ~4× larger on E Cesar Chavez near De Nada. Licensing/build-out still pending as of early Sep 2026 — verify doors before you Uber.",
+    "about": "Original E 12th Outer Heaven closed Mar/Apr 2025 (lease non-renewal for condos). New warehouse location near De Nada Cantina on E Cesar Chavez announced summer 2026; no public opening date or exact address yet. Keep as coming-soon / verify — do not remove.",
     "gaydar": "hard",
     "musicAnchor": true,
     "softEdge": false,
@@ -2354,7 +2310,7 @@
     "name": "Bar Fino",
     "spectrum": "craft",
     "area": "Rainey",
-    "address": "~88 Rainey St",
+    "address": "88 1/2 Rainey St",
     "cluster": "Rainey",
     "vibe": "European aperitivo cocktail room on Rainey — Fleet coffee by day, La Santa tacos out back. Walk-ins only.",
     "gaydar": "none",
@@ -2528,23 +2484,24 @@
     "id": "el-cockfight",
     "name": "El Cockfight",
     "spectrum": "craft",
-    "area": "Dirty 6th",
+    "area": "Downtown / 5th",
     "address": "121 E 5th St",
-    "cluster": "Dirty 6th / 5th",
-    "vibe": "Mezcal-forward maze with lively rooftop escape — HandleBar-adjacent craft with heat.",
+    "cluster": "5th & Brazos",
+    "vibe": "Mezcal maze + rooftop where HandleBar used to be — two levels, tequila heat, late crowd.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
     "flags": [
+      "ex-handlebar",
       "mezcal",
       "rooftop"
     ],
-    "lat": 30.2668,
-    "lng": -97.7428,
+    "lat": 30.26665,
+    "lng": -97.74195,
     "crypto": false,
     "cryptoMethods": "",
     "partner": false,
-    "about": "Mezcal-forward maze with lively rooftop escape — HandleBar-adjacent craft with heat.",
+    "about": "Mezcal/tequila two-story + rooftop at 121 E 5th St (former HandleBar). Bear Hug Hospitality; still open daily into late night as of mid-2026 listings.",
     "website": ""
   },
   {
@@ -2981,21 +2938,21 @@
     "area": "Warehouse / W 5th",
     "address": "307 W 5th St Unit A",
     "cluster": "Warehouse / 5th",
-    "vibe": "Flexible cocktail room currently hosting Shipwreck'd pirate pop-up — check what's sailing.",
+    "vibe": "Roosevelt Room sister event cocktail space on W 5th — seasonal themed pop-ups (Shipwreck'd ended Aug 30 2026; Miracle returns ~Nov 14). Between seasons mostly private events; verify public hours.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
     "flags": [
-      "popup",
-      "themed"
+      "event-space",
+      "verify"
     ],
     "lat": 30.2682,
     "lng": -97.7468,
     "crypto": false,
     "cryptoMethods": "",
     "partner": false,
-    "about": "Flexible cocktail room currently hosting Shipwreck'd pirate pop-up — check what's sailing.",
-    "website": ""
+    "about": "Flexible Warehouse event room next to The Roosevelt Room. Hosts immersive seasonal pop-ups (Shipwreck'd summer residency closed Aug 30 2026; Miracle on 5th Street holiday pop-up typically mid-Nov through late Dec). Outside those windows, primarily buyouts/private events — confirm before hopping.",
+    "website": "https://www.theeleanoratx.com/"
   },
   {
     "id": "the-flower-shop",
@@ -3736,7 +3693,7 @@
     "name": "Stephen F's Bar & Terrace",
     "spectrum": "upscale",
     "area": "Congress",
-    "address": "Stephen F. Austin Royal Sonesta",
+    "address": "701 Congress Ave",
     "cluster": "Congress",
     "vibe": "Congress terrace classic at the Royal Sonesta — hotel calm off the Dirty 6th crush.",
     "gaydar": "none",
@@ -3756,7 +3713,7 @@
     "name": "The Driskill Bar",
     "spectrum": "upscale",
     "area": "Congress",
-    "address": "Driskill Hotel ~604 Brazos",
+    "address": "604 Brazos St",
     "cluster": "Congress",
     "vibe": "Historic lobby grandeur at the Driskill — hexagonal bar, Texas hospitality, after-work institution.",
     "gaydar": "none",
