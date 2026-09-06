@@ -1106,3 +1106,62 @@ body.gaydar-mode .hud {
   opacity: 0.55;
   pointer-events: none;
 }
+
+
+/* Distance filter */
+.dist-block { margin-bottom: 12px; }
+.loc-btn {
+  border: none;
+  background: none;
+  color: var(--gold);
+  font: 500 12px/1 var(--serif);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.loc-btn:disabled { opacity: 0.5; }
+.dist-chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.dist-chips::-webkit-scrollbar { display: none; }
+.dist-chip {
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-3);
+  color: var(--ink-dim);
+  font: 600 11px/1 var(--sans);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.dist-chip.on {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+.dist-status {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--ink-dim);
+  letter-spacing: 0.02em;
+}
+.dist-status[hidden] { display: none !important; }
+.dossier-dist {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-style: italic;
+  letter-spacing: 0.02em;
+  margin-left: 6px;
+}

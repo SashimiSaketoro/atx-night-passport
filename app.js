@@ -42,6 +42,9 @@
     mapReady: false,
     openCardId: null,
     cryptoOnly: false,
+    userLoc: null, // {lat,lng,accuracy}
+    maxDistanceM: 0, // 0 = any
+    locBusy: false,
   };
 
   const $ = (sel, el = document) => el.querySelector(sel);
@@ -247,6 +250,21 @@
     render();
   }
 
+
+  function barDistanceM(bar) {
+    if (!state.userLoc || bar.lat == null || bar.lng == null) return null;
+    return haversineM(state.userLoc.lat, state.userLoc.lng, bar.lat, bar.lng);
+  }
+
+  function formatMiles(m) {
+    if (m == null) return "";
+    if (m < 160) return `${Math.round(m)} m`;
+    const mi = m / 1609.344;
+    if (mi < 0.1) return `${Math.round(m)} m`;
+    if (mi < 10) return `${mi.toFixed(1)} mi`;
+    return `${Math.round(mi)} mi`;
+  }
+
   function mapsUrl(bar) {
     const q = encodeURIComponent(`${bar.name}, ${bar.address}, Austin, TX`);
     return `https://maps.apple.com/?q=${q}`;
@@ -265,10 +283,16 @@
 
   function filteredBars() {
     const q = state.query.trim().toLowerCase();
+    const maxM = state.maxDistanceM;
     return state.bars
       .filter((b) => spectrumAllowed(b.spectrum))
       .filter(matchesGaydar)
       .filter((b) => !state.cryptoOnly || b.crypto)
+      .filter((b) => {
+        if (!maxM || !state.userLoc) return true;
+        const d = barDistanceM(b);
+        return d != null && d <= maxM;
+      })
       .filter((b) => {
         if (!q) return true;
         return (
@@ -280,6 +304,13 @@
         );
       })
       .sort((a, b) => {
+        if (state.userLoc) {
+          const da = barDistanceM(a);
+          const db = barDistanceM(b);
+          if (da != null && db != null && da !== db) return da - db;
+          if (da != null && db == null) return -1;
+          if (db != null && da == null) return 1;
+        }
         const ca = a.crypto ? 0 : 1;
         const cb = b.crypto ? 0 : 1;
         if (ca !== cb) return ca - cb;
@@ -319,7 +350,7 @@
       : `${bars.length} entries · ${cryptoCount}₿`;
 
     if (!bars.length) {
-      list.innerHTML = `<div class="empty-state">No entries match this dress code.</div>`;
+      list.innerHTML = `<div class="empty-state">${state.maxDistanceM && state.userLoc ? "Nothing in that distance — try a wider radius." : "No entries match these filters."}</div>`;
       return;
     }
 
@@ -327,12 +358,15 @@
       .map((b) => {
         const open = state.openCardId === b.id ? "open" : "";
         const stamped = isStamped(b.id);
+        const dist = barDistanceM(b);
+        const distHtml = dist != null ? `<span class="dossier-dist">${formatMiles(dist)}</span>` : "";
         return `
         <article class="dossier ${open}${b.crypto ? " crypto-featured" : ""}" data-spec="${b.spectrum}" data-id="${b.id}">
           <div class="dossier-top">
             <button type="button" data-expand="${b.id}" style="all:unset;cursor:pointer;display:block;min-width:0">
               <div class="dossier-kicker">
                 <span class="spec-mark">${SPECTRUM_LABEL[b.spectrum] || b.spectrum}</span>
+                ${distHtml}
                 ${b.partner ? `<span class="onboard">On Board</span>` : ""}
                 ${b.crypto ? `<span class="btc-seal-sm" title="${escapeHtml(b.cryptoMethods || "Crypto")}">₿</span>` : ""}
               </div>
@@ -606,6 +640,58 @@
     } catch {}
   }
 
+
+  function updateDistStatus(msg, { error } = {}) {
+    const el = $("#distStatus");
+    if (!el) return;
+    if (!msg) {
+      el.hidden = true;
+      el.textContent = "";
+      return;
+    }
+    el.hidden = false;
+    el.textContent = msg;
+    el.style.color = error ? "#c45c4e" : "";
+  }
+
+  async function locateUser({ silent } = {}) {
+    if (state.locBusy) return false;
+    state.locBusy = true;
+    const btn = $("#locBtn");
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Locating…";
+    }
+    if (!silent) updateDistStatus("Finding you…");
+    try {
+      const pos = await getPosition();
+      state.userLoc = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+        accuracy: pos.coords.accuracy || null,
+      };
+      updateDistStatus(
+        state.maxDistanceM
+          ? `Near you · filtering within ${formatMiles(state.maxDistanceM)}`
+          : `Near you · sorting closest first`
+      );
+      if (btn) btn.textContent = "Update location";
+      renderExplore();
+      return true;
+    } catch (err) {
+      const code = err && err.code;
+      if (code === 1) updateDistStatus("Location permission needed for distance.", { error: true });
+      else updateDistStatus("Couldn't get location.", { error: true });
+      if (btn) btn.textContent = "Locate me";
+      toast("Location needed for distance filter");
+      return false;
+    } finally {
+      state.locBusy = false;
+      const b = $("#locBtn");
+      if (b) b.disabled = false;
+    }
+  }
+
   function bindExploreChrome() {
     const screen = $("#screen-explore");
     const controls = $("#exploreControls") || $(".explore-controls");
@@ -661,6 +747,35 @@
     minEl.addEventListener("input", () => syncDial("min"));
     maxEl.addEventListener("input", () => syncDial("max"));
     updateDialUI();
+
+
+    const distChips = $("#distChips");
+    if (distChips) {
+      distChips.addEventListener("click", async (e) => {
+        const chip = e.target.closest(".dist-chip");
+        if (!chip) return;
+        const m = Number(chip.dataset.m || 0);
+        state.maxDistanceM = m;
+        $$(".dist-chip").forEach((c) => c.classList.toggle("on", c === chip));
+        if (m > 0 && !state.userLoc) {
+          const ok = await locateUser();
+          if (!ok) return;
+        } else if (state.userLoc) {
+          updateDistStatus(
+            m
+              ? `Near you · filtering within ${formatMiles(m)}`
+              : `Near you · sorting closest first`
+          );
+        } else if (m === 0) {
+          updateDistStatus("");
+        }
+        renderExplore();
+      });
+    }
+    const locBtn = $("#locBtn");
+    if (locBtn) {
+      locBtn.addEventListener("click", () => locateUser());
+    }
 
     $("#cryptoFilter").addEventListener("click", () => {
       state.cryptoOnly = !state.cryptoOnly;

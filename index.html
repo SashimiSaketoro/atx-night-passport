@@ -66,6 +66,21 @@
             </div>
           </div>
 
+          <div class="dist-block">
+            <div class="dial-head">
+              <span class="dial-label">Distance</span>
+              <button type="button" class="loc-btn" id="locBtn" title="Use my location">Locate me</button>
+            </div>
+            <div class="dist-chips" id="distChips" role="group" aria-label="Max distance">
+              <button type="button" class="dist-chip on" data-m="0">Any</button>
+              <button type="button" class="dist-chip" data-m="400">5 min</button>
+              <button type="button" class="dist-chip" data-m="800">½ mi</button>
+              <button type="button" class="dist-chip" data-m="1600">1 mi</button>
+              <button type="button" class="dist-chip" data-m="3200">2 mi</button>
+            </div>
+            <p class="dist-status" id="distStatus" hidden></p>
+          </div>
+
           <div class="seal-row">
             <button type="button" class="seal-btn" id="cryptoFilter" aria-pressed="false" title="Crypto venues">
               <span class="seal-face">₿</span>
