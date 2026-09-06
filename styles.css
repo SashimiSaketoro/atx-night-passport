@@ -1274,3 +1274,24 @@ body.gaydar-mode .hud {
 body.gaydar-mode .chain-toggle {
   border-color: rgba(255,255,255,0.25);
 }
+
+
+.dossier-soon {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f0b429;
+  border: 1px solid rgba(240,180,41,0.45);
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+body.gaydar-mode .eyebrow {
+  background: linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #24408e, #732982);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+body.gaydar-mode .brand em {
+  /* keep existing rainbow overrides if any */
+}

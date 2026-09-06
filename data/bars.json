@@ -73,7 +73,7 @@
     "area": "Red River",
     "address": "900 Red River St",
     "cluster": "Red River",
-    "vibe": "Queer patio + outdoor stage on Red River — vegan truck, drag, DIY music nights. Verify hours; the patio is the point.",
+    "vibe": "Lesbian-owned queer patio + stage. Indie weirdos, DJs, plant-based drinks — Red River soul.",
     "gaydar": "hard",
     "musicAnchor": false,
     "softEdge": false,
@@ -85,7 +85,7 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": true,
-    "about": "Queer patio + outdoor stage on Red River — vegan truck, drag, DIY music nights. Verify hours; the patio is the point.",
+    "about": "Lesbian-owned queer patio + stage. Indie weirdos, DJs, plant-based drinks — Red River soul.",
     "website": "https://cheerupcharlies.com/"
   },
   {
@@ -763,6 +763,26 @@
     "website": ""
   },
   {
+    "id": "the-austin-eagle",
+    "name": "The Austin Eagle",
+    "spectrum": "dive",
+    "area": "Northeast / Cross Park",
+    "address": "8201 Cross Park Dr Ste B2",
+    "cluster": "Northeast · rideshare",
+    "vibe": "Leather/gear clubhouse — bears, bootblacks, Gear Night. NE strip; you Uber here on purpose.",
+    "about": "Austin's dedicated leather/fetish bar since 2022. Home of Austin Gears, Austin Bears & The Foundry ATX. Kitchen by day, dance floor + patio by night. ~15–20 min from 4th St.",
+    "gaydar": "hard",
+    "musicAnchor": false,
+    "softEdge": true,
+    "flags": [],
+    "lat": 30.3305,
+    "lng": -97.667,
+    "crypto": false,
+    "cryptoMethods": "",
+    "partner": false,
+    "website": "https://theaustineagle.com/"
+  },
+  {
     "id": "the-grackle",
     "name": "The Grackle",
     "spectrum": "dive",
@@ -789,7 +809,7 @@
     "area": "Warehouse / W 6th",
     "address": "301 W 6th St",
     "cluster": "Warehouse / 4th–6th",
-    "vibe": "Neighborhood bear bar on W 6th — cold taps, low drama, often topless dance floor. Austin gay classic without the bottle-service tax.",
+    "vibe": "Bear bar classic — karaoke, underwear nights, zero pretension. Short walk north of 4th.",
     "gaydar": "hard",
     "musicAnchor": false,
     "softEdge": false,
@@ -799,7 +819,7 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": false,
-    "about": "Neighborhood bear bar on W 6th — cold taps, low drama, often topless dance floor. Austin gay classic without the bottle-service tax.",
+    "about": "Bear bar classic — karaoke, underwear nights, zero pretension. Short walk north of 4th.",
     "website": "https://www.theironbear.com/"
   },
   {
@@ -936,7 +956,7 @@
     "area": "Red River",
     "address": "611 Red River St",
     "cluster": "Red River",
-    "vibe": "TuezGays Tuesdays; mixed dance nights otherwise. Red River queer-forward club energy beside Swan Dive.",
+    "vibe": "Home of Tuesgayz — Austin's longest-running weekly queer dance night. Red River rite of passage.",
     "gaydar": "hard",
     "musicAnchor": false,
     "softEdge": false,
@@ -946,7 +966,7 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": false,
-    "about": "TuezGays Tuesdays; mixed dance nights otherwise. Red River queer-forward club energy beside Swan Dive.",
+    "about": "Home of Tuesgayz — Austin's longest-running weekly queer dance night. Red River rite of passage.",
     "website": ""
   },
   {
@@ -1154,7 +1174,7 @@
     "area": "Warehouse",
     "address": "310B / 318 Colorado",
     "cluster": "with Highland",
-    "vibe": "Tropical rooftop + neon nights by Highland — COCO CXNTS drag Saturdays. Hard gaydar downtown complex.",
+    "vibe": "Gayborhood tropical + neon complex (Coconut / Neon Grotto / Cuatro Gato). Drag brunch energy.",
     "gaydar": "hard",
     "musicAnchor": false,
     "softEdge": false,
@@ -1164,7 +1184,7 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": false,
-    "about": "Tropical rooftop + neon nights by Highland — COCO CXNTS drag Saturdays. Hard gaydar downtown complex.",
+    "about": "Gayborhood tropical + neon complex (Coconut / Neon Grotto / Cuatro Gato). Drag brunch energy.",
     "website": ""
   },
   {
@@ -1198,7 +1218,7 @@
     "address": "208 W 4th Ste C",
     "cluster": "Warehouse / 4th",
     "vibe": "Drag brunch Sundays, patio chill on Warehouse 4th. Soft queer-friendly hang between Oilcan and Péché.",
-    "gaydar": "soft",
+    "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
     "flags": [],
@@ -1373,7 +1393,7 @@
     "area": "Warehouse",
     "address": "404 Colorado St",
     "cluster": "Colorado / 4th",
-    "vibe": "Largest LGBTQ club downtown — three stories, six bars, drag, go-gos, bottle service. Get elevated.",
+    "vibe": "Biggest gay club in town — three floors, six bars, Friday Lesbian Dance Party.",
     "gaydar": "hard",
     "musicAnchor": false,
     "softEdge": false,
@@ -1383,7 +1403,7 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": false,
-    "about": "Largest LGBTQ club downtown — three stories, six bars, drag, go-gos, bottle service. Get elevated.",
+    "about": "Biggest gay club in town — three floors, six bars, Friday Lesbian Dance Party.",
     "website": "https://www.highlandlounge.com/"
   },
   {
@@ -1457,7 +1477,7 @@
     "address": "242 W 2nd St",
     "cluster": "2nd St",
     "vibe": "Daytime drag-brunch fuel on 2nd St — I love you so much mural energy, coffee before Warehouse nightlife.",
-    "gaydar": "soft",
+    "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
     "flags": [],
@@ -1833,7 +1853,7 @@
     "area": "Warehouse",
     "address": "211 W 4th St",
     "cluster": "Warehouse / 4th",
-    "vibe": "Oldest gay bar downtown (since '90) — drag, dancers, karaoke, patio. 4th Street gravity well.",
+    "vibe": "Austin's oldest gay bar — drag, dance, decades of 4th St lore. The gayborhood anchor.",
     "gaydar": "hard",
     "musicAnchor": false,
     "softEdge": false,
@@ -1843,8 +1863,31 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": true,
-    "about": "Oldest gay bar downtown (since '90) — drag, dancers, karaoke, patio. 4th Street gravity well.",
+    "about": "Austin's oldest gay bar — drag, dance, decades of 4th St lore. The gayborhood anchor.",
     "website": "https://oilcanharrys.com/"
+  },
+  {
+    "id": "outer-heaven",
+    "name": "Outer Heaven Disco Club",
+    "spectrum": "casual",
+    "area": "East Cesar Chavez",
+    "address": "E Cesar Chavez (near De Nada) — confirm pin",
+    "cluster": "East · verify open",
+    "vibe": "Queer DIY disco returning bigger on E Cesar Chavez. Cult floor — verify doors before you Uber.",
+    "about": "Forced out of E 12th in 2025; rebuilding ~4× larger near De Nada on E Cesar Chavez. Karaoke wing + community nights planned. As of mid-2026 still finishing licensing — stamp only when open.",
+    "gaydar": "hard",
+    "musicAnchor": true,
+    "softEdge": false,
+    "flags": [
+      "verify",
+      "coming-soon"
+    ],
+    "lat": 30.2565,
+    "lng": -97.7228,
+    "crypto": false,
+    "cryptoMethods": "",
+    "partner": false,
+    "website": ""
   },
   {
     "id": "parley",
@@ -1873,7 +1916,7 @@
     "area": "Warehouse",
     "address": "217 W 4th St",
     "cluster": "Warehouse / 4th",
-    "vibe": "High-energy gay dance floor with light-up tile — drag, karaoke, strip-off nights next to Oilcan.",
+    "vibe": "Gay dance + drag palace across from Oilcan's. Peak after midnight; patio when you need air.",
     "gaydar": "hard",
     "musicAnchor": false,
     "softEdge": false,
@@ -1883,7 +1926,7 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": true,
-    "about": "High-energy gay dance floor with light-up tile — drag, karaoke, strip-off nights next to Oilcan.",
+    "about": "Gay dance + drag palace across from Oilcan's. Peak after midnight; patio when you need air.",
     "website": "https://rainon4th.com/"
   },
   {
@@ -2551,8 +2594,8 @@
     "area": "Warehouse / 4th",
     "address": "218 W 4th St",
     "cluster": "Bettie Naylor / 4th",
-    "vibe": "Queer café→lounge on 4th — coffee all day, drag brunch Sat, craft cocktails into the night.",
-    "gaydar": "hard",
+    "vibe": "Gayborhood coffee→cocktails hang between Rain and Oilcan's. Pregame, s'mores, drag brunch days.",
+    "gaydar": "soft",
     "musicAnchor": false,
     "softEdge": false,
     "flags": [],
@@ -2561,7 +2604,7 @@
     "crypto": false,
     "cryptoMethods": "",
     "partner": true,
-    "about": "Queer café→lounge on 4th — coffee all day, drag brunch Sat, craft cocktails into the night.",
+    "about": "Gayborhood coffee→cocktails hang between Rain and Oilcan's. Pregame, s'mores, drag brunch days.",
     "website": "https://www.halcyoncoffeebar.com/"
   },
   {
@@ -2978,7 +3021,7 @@
     "website": ""
   },
   {
-    "gaydar": "soft",
+    "gaydar": "none",
     "musicAnchor": true,
     "softEdge": false,
     "flags": [
@@ -3452,7 +3495,7 @@
     "website": ""
   },
   {
-    "gaydar": "soft",
+    "gaydar": "none",
     "musicAnchor": true,
     "softEdge": false,
     "flags": [
@@ -3631,7 +3674,7 @@
     "address": "620 W 6th St #1",
     "cluster": "W 6th",
     "vibe": "Bubbles-forward lounge where it's always #poppin — soft queer-friendly W 6th sparkle.",
-    "gaydar": "soft",
+    "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
     "flags": [

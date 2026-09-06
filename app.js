@@ -283,8 +283,8 @@
 
   function matchesEthCircuit(bar) {
     if (state.mode !== "eth") return true;
-    // ETH rainbow circuit: gay-primary venues only
-    return bar.gaydar === "hard";
+    // ETH = gay meme mode: primary + curated adjacent (not "friendly coffee")
+    return bar.gaydar === "hard" || bar.gaydar === "soft";
   }
 
   function austinNow() {
@@ -389,12 +389,21 @@
     const list = $("#barList");
     const bars = filteredBars();
     const cryptoCount = state.bars.filter((b) => b.crypto).length;
-    $("#countMeta").textContent = state.cryptoOnly
-      ? `${bars.length} crypto`
-      : `${bars.length} entries · ${cryptoCount}₿`;
+    if (state.cryptoOnly) {
+      $("#countMeta").textContent = `${bars.length} crypto`;
+    } else if (state.mode === "eth") {
+      $("#countMeta").textContent = `${bars.length} gay circuit`;
+    } else {
+      $("#countMeta").textContent = `${bars.length} entries · ${cryptoCount}₿`;
+    }
 
     if (!bars.length) {
-      list.innerHTML = `<div class="empty-state">${state.maxDistanceM && state.userLoc ? "Nothing in that distance — try a wider radius." : "No entries match these filters."}</div>`;
+      const emptyMsg = state.maxDistanceM && state.userLoc
+        ? "Nothing in that distance — try a wider radius."
+        : state.mode === "eth"
+          ? "No gay-circuit matches — loosen the dress dial or distance."
+          : "No entries match these filters.";
+      list.innerHTML = `<div class="empty-state">${emptyMsg}</div>`;
       return;
     }
 
@@ -412,6 +421,7 @@
                 <span class="spec-mark">${SPECTRUM_LABEL[b.spectrum] || b.spectrum}</span>
                 ${distHtml}
                 ${isLikelyOpen(b) ? `<span class="dossier-open">Open</span>` : ""}
+                ${(b.flags || []).includes("coming-soon") ? `<span class="dossier-soon">Soon</span>` : ""}
                 ${b.partner ? `<span class="onboard">On Board</span>` : ""}
                 ${b.crypto ? `<span class="btc-seal-sm" title="${escapeHtml(b.cryptoMethods || "Crypto")}">₿</span>` : ""}
               </div>
@@ -686,13 +696,17 @@
     if (btn) {
       btn.setAttribute("aria-pressed", next === "eth" ? "true" : "false");
       btn.dataset.mode = next;
-      btn.title = next === "eth" ? "ETH mode (gay circuit)" : "BTC mode";
+      btn.title = next === "eth" ? "ETH · the gay chain" : "BTC · orange default";
+    }
+    const eye = $("#modeEyebrow");
+    if (eye) {
+      eye.textContent = next === "eth" ? "ETH mode · Gay circuit" : "BTC mode · Night Series";
     }
     try {
       localStorage.setItem(ETH_KEY, next === "eth" ? "1" : "0");
     } catch {}
-    if (toastOn && changing && next === "eth") toast("ETH · gay circuit");
-    if (toastOn && changing && next === "btc") toast("BTC mode");
+    if (toastOn && changing && next === "eth") toast("ETH unlocked — yes, the gay chain");
+    if (toastOn && changing && next === "btc") toast("Back to BTC · orange pill");
   }
 
 
