@@ -1,0 +1,151 @@
+[
+  {
+    "id": "spectrum-run",
+    "title": "Spectrum Run",
+    "tagline": "One stamp per dress code — from sticky floors to jacket required.",
+    "difficulty": "Medium",
+    "reward": "Full Spectrum Seal",
+    "accent": "#c4a05a",
+    "stopIds": [
+      "blind-pig-pub",
+      "casino-el-camino",
+      "latchkey",
+      "garage",
+      "geraldines",
+      "midnight-cowboy"
+    ],
+    "partnerIds": [
+      "casino-el-camino",
+      "garage",
+      "midnight-cowboy",
+      "geraldines"
+    ],
+    "clues": {
+      "blind-pig-pub": "Where sixth street still smells like last call.",
+      "casino-el-camino": "Burgers, neon, and a dive that never blinks.",
+      "latchkey": "East side keyhole — casual, no RSVP.",
+      "garage": "Parked under the city. Order something stirred.",
+      "geraldines": "Van Zandt rooftop polish — soft lights, hard pours.",
+      "midnight-cowboy": "Knock. Whisper. Jacket optional, attitude not."
+    }
+  },
+  {
+    "id": "lightning-round",
+    "title": "Lightning Round",
+    "tagline": "Follow the orange seal. Satoshi drinks here.",
+    "difficulty": "Hard",
+    "reward": "₿ Night Seal",
+    "accent": "#f7931a",
+    "stopIds": [
+      "shiners-saloon",
+      "maggie-maes",
+      "saturn",
+      "iii-forks",
+      "texas-toy-museum-and-arcade"
+    ],
+    "partnerIds": [
+      "shiners-saloon",
+      "maggie-maes",
+      "saturn",
+      "iii-forks",
+      "texas-toy-museum-and-arcade"
+    ],
+    "clues": {
+      "shiners-saloon": "Congress lightning — ask before you tap.",
+      "maggie-maes": "Dirty sixth thunder. BTC preferred.",
+      "saturn": "Orbit Congress. Pay in sats if they blink.",
+      "iii-forks": "Steakhouse polish with a BitPay back pocket.",
+      "texas-toy-museum-and-arcade": "Tokens, toys, and a Lightning tip jar."
+    }
+  },
+  {
+    "id": "east-side-cipher",
+    "title": "East Side Cipher",
+    "tagline": "Decode the east-of-35 trail — dive to honky-tonk.",
+    "difficulty": "Medium",
+    "reward": "East Cipher Mark",
+    "accent": "#6a9e92",
+    "stopIds": [
+      "shangri-la",
+      "the-treasury",
+      "latchkey",
+      "hotel-vegas-and-volstead",
+      "whislers-and-tobala",
+      "the-white-horse"
+    ],
+    "partnerIds": [
+      "the-treasury",
+      "hotel-vegas-and-volstead",
+      "whislers-and-tobala",
+      "the-white-horse"
+    ],
+    "clues": {
+      "shangri-la": "Paradise with sticky floors. Start messy.",
+      "the-treasury": "Vault door energy. East 6th secrets.",
+      "latchkey": "If you have the key, you belong.",
+      "hotel-vegas-and-volstead": "Two doors, one night — Vegas upstairs.",
+      "whislers-and-tobala": "Mezcal smoke and a courtyard cipher.",
+      "the-white-horse": "Boots optional. Two-step required."
+    }
+  },
+  {
+    "id": "jacket-optional",
+    "title": "Jacket Optional",
+    "tagline": "Reservation dens, hidden doors, whispered passwords.",
+    "difficulty": "Hard",
+    "reward": "Velvet Rope Seal",
+    "accent": "#e8941a",
+    "stopIds": [
+      "small-victory",
+      "here-nor-there",
+      "midnight-cowboy",
+      "firehouse-lounge",
+      "in-plain-sight",
+      "goldies"
+    ],
+    "partnerIds": [
+      "midnight-cowboy",
+      "firehouse-lounge",
+      "in-plain-sight",
+      "goldies"
+    ],
+    "clues": {
+      "small-victory": "A quiet win downtown. Soft voice, sharp drink.",
+      "here-nor-there": "Near the Driskill — neither lobby nor alley.",
+      "midnight-cowboy": "The classic knock. Dress like you mean it.",
+      "firehouse-lounge": "After the alarm. Nightcap under red light.",
+      "in-plain-sight": "Hidden in the open. Look twice.",
+      "goldies": "Proper hotel bones. Reservation armor on."
+    }
+  },
+  {
+    "id": "fourth-street-pulse",
+    "title": "Fourth Street Pulse",
+    "tagline": "Warehouse heartbeat. Follow the pulse after midnight.",
+    "difficulty": "Easy",
+    "reward": "Pulse Ribbon",
+    "accent": "#c45c8a",
+    "stopIds": [
+      "oilcan-harrys",
+      "rain-on-4th",
+      "highland-lounge",
+      "coconut-club-and-neon-grotto",
+      "cheer-up-charlies",
+      "halcyon"
+    ],
+    "partnerIds": [
+      "oilcan-harrys",
+      "rain-on-4th",
+      "cheer-up-charlies",
+      "halcyon"
+    ],
+    "clues": {
+      "oilcan-harrys": "Warehouse classic — the pulse starts here.",
+      "rain-on-4th": "Fourth street glow. Stay in the weather.",
+      "highland-lounge": "Low lights, high volume, warehouse core.",
+      "coconut-club-and-neon-grotto": "Neon grotto energy. Follow the color.",
+      "cheer-up-charlies": "Red River cheer — keep the night warm.",
+      "halcyon": "Fourth street calm after the storm."
+    }
+  }
+]

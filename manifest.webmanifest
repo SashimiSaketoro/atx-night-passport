@@ -1,0 +1,32 @@
+{
+  "name": "ATX Night Passport",
+  "short_name": "ATX Passport",
+  "description": "Stamp partner bars, run scavenger hunts, and collect your Austin nightlife seals.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0907",
+  "theme_color": "#0a0907",
+  "categories": ["travel", "nightlife", "lifestyle", "games"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "id": "rainey-spectrum",
+    "letter": "A",
+    "name": "Rainey Spectrum",
+    "blurb": "Casual openers \u2192 craft cocktails \u2192 dressier closer on Rainey.",
+    "stops": [
+      "the-stay-put",
+      "bangers",
+      "half-step",
+      "bar-hacienda",
+      "bar-fino",
+      "modern-bar"
+    ]
+  },
+  {
+    "id": "east-side-character",
+    "letter": "B",
+    "name": "East Side Character",
+    "blurb": "Dive \u2192 latchkey \u2192 Vegas/Volstead \u2192 mezcal \u2192 honky-tonk.",
+    "stops": [
+      "shangri-la",
+      "the-treasury",
+      "latchkey",
+      "hotel-vegas-and-volstead",
+      "whislers-and-tobala",
+      "the-white-horse"
+    ]
+  },
+  {
+    "id": "warehouse-soft-landing",
+    "letter": "C",
+    "name": "Warehouse Soft Landing",
+    "blurb": "Garage \u2192 P\u00e9ch\u00e9 \u2192 jacket option \u2192 optional Fourth Street closer.",
+    "stops": [
+      "garage",
+      "peche",
+      "powder-room",
+      "the-roosevelt-room",
+      "oilcan-harrys",
+      "rain-on-4th"
+    ]
+  },
+  {
+    "id": "speakeasy-circuit",
+    "letter": "D",
+    "name": "Speakeasy Circuit",
+    "blurb": "Reservation dens and a Firehouse nightcap.",
+    "stops": [
+      "small-victory",
+      "here-nor-there",
+      "midnight-cowboy",
+      "firehouse-lounge"
+    ]
+  },
+  {
+    "id": "east-of-35-compact",
+    "letter": "E",
+    "name": "East of 35 Compact",
+    "blurb": "Walkable east-of-I-35 cluster for a tight hop.",
+    "stops": [
+      "papercut",
+      "yellow-jacket-social-club",
+      "whislers-and-tobala",
+      "daydreamer",
+      "lazarus-brewing",
+      "nickel-city"
+    ]
+  },
+  {
+    "id": "eth-4th-st",
+    "letter": "F",
+    "name": "ETH 4th St",
+    "blurb": "Fourth Street special \u2014 Halcyon \u2192 Oilcan \u2192 Rain \u2192 Highland / Coconut.",
+    "stops": [
+      "halcyon",
+      "oilcan-harrys",
+      "rain-on-4th",
+      "highland-lounge",
+      "coconut-club-and-neon-grotto"
+    ]
+  }
+]
