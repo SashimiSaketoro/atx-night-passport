@@ -611,10 +611,10 @@
 
     const hint = $("#circuitHint");
     if (hint) {
-      if (state.kitchenOnly && state.cryptoOnly) {
+      if (state.kitchenOnly && bars.length && state.cryptoOnly) {
         hint.hidden = false;
         hint.textContent = "Night fuel on LN · Proof of Hop";
-      } else if (state.kitchenOnly) {
+      } else if (state.kitchenOnly && bars.length) {
         hint.hidden = false;
         hint.textContent = "Late kitchens · Proof of Hop";
       } else {

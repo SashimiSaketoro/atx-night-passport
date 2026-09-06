@@ -516,9 +516,15 @@ body {
 
 /* —— Missions / Hunts —— */
 .section-intro { margin-bottom: 14px; }
+.section-intro-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
 .section-kicker,
 .poh-kicker {
-  margin: 0 0 2px;
+  margin: 0;
   font-family: var(--serif);
   font-style: italic;
   font-weight: 500;
