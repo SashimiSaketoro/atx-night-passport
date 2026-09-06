@@ -283,7 +283,7 @@
 
   function matchesEthCircuit(bar) {
     if (state.mode !== "eth") return true;
-    // ETH = gay meme mode: primary + curated adjacent (not "friendly coffee")
+    // ETH circuit: hard + curated soft
     return bar.gaydar === "hard" || bar.gaydar === "soft";
   }
 
@@ -324,7 +324,7 @@
   }
 
 
-  // ETH circuit: Oilcan + RAIN lead the gayborhood crawl
+  // ETH circuit: Oilcan + RAIN lead
   function ethPinRank(bar) {
     if (bar.id === "oilcan-harrys") return 0;
     if (bar.id === "rain-on-4th") return 1;
@@ -408,8 +408,6 @@
     const cryptoCount = state.bars.filter((b) => b.crypto).length;
     if (state.cryptoOnly) {
       $("#countMeta").textContent = `${bars.length} crypto`;
-    } else if (state.mode === "eth") {
-      $("#countMeta").textContent = `${bars.length} gay circuit`;
     } else {
       $("#countMeta").textContent = `${bars.length} entries · ${cryptoCount}₿`;
     }
@@ -417,9 +415,7 @@
     if (!bars.length) {
       const emptyMsg = state.maxDistanceM && state.userLoc
         ? "Nothing in that distance — try a wider radius."
-        : state.mode === "eth"
-          ? "No gay-circuit matches — loosen the dress dial or distance."
-          : "No entries match these filters.";
+        : "No entries match these filters.";
       list.innerHTML = `<div class="empty-state">${emptyMsg}</div>`;
       return;
     }
@@ -436,9 +432,6 @@
             <button type="button" data-expand="${b.id}" style="all:unset;cursor:pointer;display:block;min-width:0">
               <div class="dossier-kicker">
                 <span class="spec-mark">${SPECTRUM_LABEL[b.spectrum] || b.spectrum}</span>
-                ${state.mode === "eth" && (b.id === "oilcan-harrys" || b.id === "rain-on-4th") ? `<span class="eth-pin">★ Icon</span>` : ""}
-                ${state.mode === "eth" && b.gaydar === "hard" && b.id !== "oilcan-harrys" && b.id !== "rain-on-4th" ? `<span class="eth-hard-tag">Gay</span>` : ""}
-                ${state.mode === "eth" && b.gaydar === "soft" ? `<span class="eth-soft-tag">Adjacent</span>` : ""}
                 ${distHtml}
                 ${isLikelyOpen(b) ? `<span class="dossier-open">Open</span>` : ""}
                 ${(b.flags || []).includes("coming-soon") ? `<span class="dossier-soon">Soon</span>` : ""}
@@ -716,17 +709,12 @@
     if (btn) {
       btn.setAttribute("aria-pressed", next === "eth" ? "true" : "false");
       btn.dataset.mode = next;
-      btn.title = next === "eth" ? "ETH · the gay chain" : "BTC · orange default";
-    }
-    const eye = $("#modeEyebrow");
-    if (eye) {
-      eye.textContent = next === "eth" ? "ETH mode · Gay circuit" : "BTC mode · Night Series";
+      btn.title = next === "eth" ? "ETH" : "BTC";
     }
     try {
       localStorage.setItem(ETH_KEY, next === "eth" ? "1" : "0");
     } catch {}
-    if (toastOn && changing && next === "eth") toast("ETH unlocked — yes, the gay chain");
-    if (toastOn && changing && next === "btc") toast("Back to BTC · orange pill");
+    if (toastOn && changing) toast(next === "eth" ? "ETH" : "BTC");
   }
 
 
