@@ -29,7 +29,9 @@
     hunts: [],
     spectrumMin: 0,
     spectrumMax: 5,
-    gaydar: "off",
+    mode: "btc", // btc | eth
+    gaydar: "off", // derived from mode
+    openNow: false,
     query: "",
     screen: "explore",
     stamps: loadStamps(),
@@ -270,10 +272,41 @@
     return `https://maps.apple.com/?q=${q}`;
   }
 
-  function matchesGaydar(bar) {
-    if (state.gaydar === "off") return true;
-    return bar.gaydar === "hard";
+  function matchesEthCircuit(bar) {
+    if (state.mode !== "eth") return true;
+    // ETH rainbow circuit: primary queer + adjacent
+    return bar.gaydar === "hard" || bar.gaydar === "soft";
   }
+
+  function austinNow() {
+    try {
+      return new Date(new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }));
+    } catch {
+      return new Date();
+    }
+  }
+
+  // Approximate hours (Austin nightlife). Marked estimated — good enough for "Open now".
+  function barHours(bar) {
+    // [openHour, closeHour) in local 24h; close < open means past midnight
+    if (bar.id === "jos-coffee-2nd-st") return { open: 7, close: 21, kind: "day" };
+    if (bar.musicAnchor) return { open: 19, close: 2, kind: "show" };
+    if (bar.spectrum === "jacket") return { open: 17, close: 1, kind: "night" };
+    if (bar.spectrum === "upscale") return { open: 16, close: 1, kind: "night" };
+    if (bar.spectrum === "craft") return { open: 16, close: 2, kind: "night" };
+    if (bar.spectrum === "casual") return { open: 15, close: 2, kind: "night" };
+    // sloppy / dive
+    return { open: 14, close: 2, kind: "night" };
+  }
+
+  function isLikelyOpen(bar, when = austinNow()) {
+    const { open, close } = barHours(bar);
+    const h = when.getHours() + when.getMinutes() / 60;
+    if (close > open) return h >= open && h < close;
+    // overnight window e.g. 16 → 2
+    return h >= open || h < close;
+  }
+
 
   function spectrumAllowed(spec) {
     const i = SPECTRUM_ORDER.indexOf(spec);
@@ -286,7 +319,8 @@
     const maxM = state.maxDistanceM;
     return state.bars
       .filter((b) => spectrumAllowed(b.spectrum))
-      .filter(matchesGaydar)
+      .filter(matchesEthCircuit)
+      .filter((b) => !state.openNow || isLikelyOpen(b))
       .filter((b) => !state.cryptoOnly || b.crypto)
       .filter((b) => {
         if (!maxM || !state.userLoc) return true;
@@ -367,6 +401,7 @@
               <div class="dossier-kicker">
                 <span class="spec-mark">${SPECTRUM_LABEL[b.spectrum] || b.spectrum}</span>
                 ${distHtml}
+                ${isLikelyOpen(b) ? `<span class="dossier-open">Open</span>` : ""}
                 ${b.partner ? `<span class="onboard">On Board</span>` : ""}
                 ${b.crypto ? `<span class="btc-seal-sm" title="${escapeHtml(b.cryptoMethods || "Crypto")}">₿</span>` : ""}
               </div>
@@ -629,15 +664,25 @@
     else if (state.screen === "map") updateMapMarkers();
   }
 
-  function setEth(on) {
-    state.gaydar = on ? "on" : "off";
-    document.body.classList.toggle("gaydar-mode", on);
-    const btn = $("#ethToggle");
-    btn.setAttribute("aria-pressed", on ? "true" : "false");
-    btn.textContent = on ? "ETH · On" : "ETH · Off";
+  function setMode(mode, { toastOn } = {}) {
+    const next = mode === "eth" ? "eth" : "btc";
+    const changing = state.mode !== next;
+    state.mode = next;
+    state.gaydar = next === "eth" ? "on" : "off";
+    document.body.classList.toggle("gaydar-mode", next === "eth");
+    const btc = $("#modeBtc");
+    const eth = $("#modeEth");
+    if (btc && eth) {
+      btc.classList.toggle("on", next === "btc");
+      eth.classList.toggle("on", next === "eth");
+      btc.setAttribute("aria-pressed", next === "btc" ? "true" : "false");
+      eth.setAttribute("aria-pressed", next === "eth" ? "true" : "false");
+    }
     try {
-      localStorage.setItem(ETH_KEY, on ? "1" : "0");
+      localStorage.setItem(ETH_KEY, next === "eth" ? "1" : "0");
     } catch {}
+    if (toastOn && changing && next === "eth") toast("ETH mode synced");
+    if (toastOn && changing && next === "btc") toast("BTC mode");
   }
 
 
@@ -793,12 +838,21 @@
       btn.addEventListener("click", () => setScreen(btn.dataset.nav));
     });
 
-    $("#ethToggle").addEventListener("click", () => {
-      const turningOn = state.gaydar === "off";
-      setEth(turningOn);
-      if (turningOn) toast("ETH mode synced");
-      render();
+    $$(".mode-chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setMode(btn.dataset.mode, { toastOn: true });
+        render();
+      });
     });
+    const openBtn = $("#openNowFilter");
+    if (openBtn) {
+      openBtn.addEventListener("click", () => {
+        state.openNow = !state.openNow;
+        openBtn.classList.toggle("on", state.openNow);
+        openBtn.setAttribute("aria-pressed", state.openNow ? "true" : "false");
+        renderExplore();
+      });
+    }
 
     $("#clearHuntMap").addEventListener("click", () => {
       state.activeHuntId = null;
@@ -897,7 +951,7 @@
       ethOn = localStorage.getItem(ETH_KEY) === "1";
     } catch {}
     if (new URLSearchParams(location.search).get("eth") === "1") ethOn = true;
-    setEth(ethOn);
+    setMode(ethOn ? "eth" : "btc");
 
     bindEvents();
     bindExploreChrome();

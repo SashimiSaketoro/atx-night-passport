@@ -1165,3 +1165,61 @@ body.gaydar-mode .hud {
   letter-spacing: 0.02em;
   margin-left: 6px;
 }
+
+
+/* BTC / ETH mode */
+.mode-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.mode-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-3);
+  color: var(--ink-dim);
+  font: 700 12px/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.mode-chip .mode-ico { font-size: 14px; }
+.mode-chip.on[data-mode="btc"] {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+  box-shadow: 0 0 0 1px rgba(196,160,90,0.25);
+}
+.mode-chip.on[data-mode="eth"] {
+  border-color: transparent;
+  color: #fff;
+  background: linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #24408e, #732982);
+  text-shadow: 0 1px 2px rgba(0,0,0,.4);
+}
+.open-dot {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50%;
+  background: #3dba7a;
+  box-shadow: 0 0 8px rgba(61,186,122,0.55);
+  display: inline-block;
+}
+.seal-btn.on#openNowFilter,
+#openNowFilter[aria-pressed="true"] {
+  border-color: #3dba7a;
+  color: #9ae6b8;
+}
+.dossier-open {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #3dba7a;
+  border: 1px solid rgba(61,186,122,0.4);
+  padding: 2px 6px;
+  border-radius: 999px;
+}
