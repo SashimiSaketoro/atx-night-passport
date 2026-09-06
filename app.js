@@ -323,6 +323,16 @@
     return i >= state.spectrumMin && i <= state.spectrumMax;
   }
 
+
+  // ETH circuit: Oilcan + RAIN lead the gayborhood crawl
+  function ethPinRank(bar) {
+    if (bar.id === "oilcan-harrys") return 0;
+    if (bar.id === "rain-on-4th") return 1;
+    if (bar.gaydar === "hard") return 2;
+    if (bar.gaydar === "soft") return 3;
+    return 9;
+  }
+
   function filteredBars() {
     const q = state.query.trim().toLowerCase();
     const maxM = state.maxDistanceM;
@@ -348,6 +358,11 @@
         );
       })
       .sort((a, b) => {
+        if (state.mode === "eth") {
+          const pa = ethPinRank(a);
+          const pb = ethPinRank(b);
+          if (pa !== pb) return pa - pb;
+        }
         if (state.userLoc) {
           const da = barDistanceM(a);
           const db = barDistanceM(b);
@@ -355,9 +370,11 @@
           if (da != null && db == null) return -1;
           if (db != null && da == null) return 1;
         }
-        const ca = a.crypto ? 0 : 1;
-        const cb = b.crypto ? 0 : 1;
-        if (ca !== cb) return ca - cb;
+        if (state.mode !== "eth") {
+          const ca = a.crypto ? 0 : 1;
+          const cb = b.crypto ? 0 : 1;
+          if (ca !== cb) return ca - cb;
+        }
         const sa = SPECTRUM_ORDER.indexOf(a.spectrum);
         const sb = SPECTRUM_ORDER.indexOf(b.spectrum);
         if (sa !== sb) return sa - sb;
@@ -414,11 +431,14 @@
         const dist = barDistanceM(b);
         const distHtml = dist != null ? `<span class="dossier-dist">${formatMiles(dist)}</span>` : "";
         return `
-        <article class="dossier ${open}${b.crypto ? " crypto-featured" : ""}" data-spec="${b.spectrum}" data-id="${b.id}">
+        <article class="dossier ${open}${b.crypto ? " crypto-featured" : ""}${state.mode === "eth" && b.gaydar === "hard" ? " eth-hard" : ""}${state.mode === "eth" && b.gaydar === "soft" ? " eth-soft" : ""}${state.mode === "eth" && (b.id === "oilcan-harrys" || b.id === "rain-on-4th") ? " eth-anchor" : ""}" data-spec="${b.spectrum}" data-id="${b.id}" data-gay="${escapeHtml(b.gaydar || "none")}">
           <div class="dossier-top">
             <button type="button" data-expand="${b.id}" style="all:unset;cursor:pointer;display:block;min-width:0">
               <div class="dossier-kicker">
                 <span class="spec-mark">${SPECTRUM_LABEL[b.spectrum] || b.spectrum}</span>
+                ${state.mode === "eth" && (b.id === "oilcan-harrys" || b.id === "rain-on-4th") ? `<span class="eth-pin">★ Icon</span>` : ""}
+                ${state.mode === "eth" && b.gaydar === "hard" && b.id !== "oilcan-harrys" && b.id !== "rain-on-4th" ? `<span class="eth-hard-tag">Gay</span>` : ""}
+                ${state.mode === "eth" && b.gaydar === "soft" ? `<span class="eth-soft-tag">Adjacent</span>` : ""}
                 ${distHtml}
                 ${isLikelyOpen(b) ? `<span class="dossier-open">Open</span>` : ""}
                 ${(b.flags || []).includes("coming-soon") ? `<span class="dossier-soon">Soon</span>` : ""}
