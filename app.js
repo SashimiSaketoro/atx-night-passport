@@ -45,6 +45,7 @@
     mapReady: false,
     openCardId: null,
     cryptoOnly: false,
+    kitchenOnly: false,
     userLoc: null, // {lat,lng,accuracy}
     maxDistanceM: 0, // 0 = any
     locBusy: false,
@@ -457,6 +458,25 @@
     return bar.gaydar === "hard" || bar.gaydar === "soft";
   }
 
+  function barFlags(bar) {
+    return Array.isArray(bar.flags) ? bar.flags : [];
+  }
+  function hasFlag(bar, flag) {
+    return barFlags(bar).includes(flag);
+  }
+  function isNightFuel(bar) {
+    return hasFlag(bar, "night-fuel");
+  }
+  function fuelBadges(bar) {
+    const flags = barFlags(bar);
+    const bits = [];
+    if (flags.includes("night-fuel")) bits.push(`<span class="dossier-fuel" title="Late kitchen / night fuel">Kitchen</span>`);
+    else if (flags.includes("kitchen")) bits.push(`<span class="dossier-kitchen" title="Food stop — not last-call">Food</span>`);
+    if (flags.includes("food-truck")) bits.push(`<span class="dossier-truck" title="Food truck">Truck</span>`);
+    if (flags.includes("community")) bits.push(`<span class="dossier-community" title="Bitcoin community space">Community</span>`);
+    return bits.join("");
+  }
+
   function austinNow() {
     try {
       return new Date(new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }));
@@ -511,6 +531,7 @@
       .filter(matchesEthCircuit)
       .filter((b) => !state.openNow || isLikelyOpen(b))
       .filter((b) => !state.cryptoOnly || b.crypto)
+      .filter((b) => !state.kitchenOnly || isNightFuel(b))
       .filter((b) => {
         if (!maxM || !state.userLoc) return true;
         const d = barDistanceM(b);
@@ -524,7 +545,8 @@
           b.address.toLowerCase().includes(q) ||
           b.cluster.toLowerCase().includes(q) ||
           (b.vibe || "").toLowerCase().includes(q) ||
-        (b.about || "").toLowerCase().includes(q)
+          (b.about || "").toLowerCase().includes(q) ||
+          barFlags(b).join(" ").toLowerCase().includes(q)
         );
       })
       .sort((a, b) => {
@@ -576,10 +598,15 @@
     const list = $("#barList");
     const bars = filteredBars();
     const cryptoCount = state.bars.filter((b) => b.crypto).length;
-    if (state.cryptoOnly) {
+    const fuelCount = state.bars.filter((b) => isNightFuel(b)).length;
+    if (state.cryptoOnly && state.kitchenOnly) {
+      $("#countMeta").textContent = `${bars.length} kitchen ₿`;
+    } else if (state.cryptoOnly) {
       $("#countMeta").textContent = `${bars.length} crypto`;
+    } else if (state.kitchenOnly) {
+      $("#countMeta").textContent = `${bars.length} kitchen`;
     } else {
-      $("#countMeta").textContent = `${bars.length} entries · ${cryptoCount}₿`;
+      $("#countMeta").textContent = `${bars.length} entries · ${cryptoCount}₿ · ${fuelCount} kitchen`;
     }
 
     if (!bars.length) {
@@ -597,7 +624,7 @@
         const dist = barDistanceM(b);
         const distHtml = dist != null ? `<span class="dossier-dist">${formatMiles(dist)}</span>` : "";
         return `
-        <article class="dossier ${open}${b.crypto ? " crypto-featured" : ""}${state.mode === "eth" && b.gaydar === "hard" ? " eth-hard" : ""}${state.mode === "eth" && b.gaydar === "soft" ? " eth-soft" : ""}${state.mode === "eth" && (b.id === "oilcan-harrys" || b.id === "rain-on-4th") ? " eth-anchor" : ""}" data-spec="${b.spectrum}" data-id="${b.id}" data-gay="${escapeHtml(b.gaydar || "none")}">
+        <article class="dossier ${open}${b.crypto ? " crypto-featured" : ""}${isNightFuel(b) ? " fuel-featured" : ""}${state.mode === "eth" && b.gaydar === "hard" ? " eth-hard" : ""}${state.mode === "eth" && b.gaydar === "soft" ? " eth-soft" : ""}${state.mode === "eth" && (b.id === "oilcan-harrys" || b.id === "rain-on-4th") ? " eth-anchor" : ""}" data-spec="${b.spectrum}" data-id="${b.id}" data-gay="${escapeHtml(b.gaydar || "none")}">
           <div class="dossier-top">
             <button type="button" data-expand="${b.id}" style="all:unset;cursor:pointer;display:block;min-width:0">
               <div class="dossier-kicker">
@@ -605,6 +632,7 @@
                 ${distHtml}
                 ${isLikelyOpen(b) ? `<span class="dossier-open">Open</span>` : ""}
                 ${(b.flags || []).includes("coming-soon") ? `<span class="dossier-soon">Soon</span>` : ""}
+                ${fuelBadges(b)}
                 ${b.partner ? `<span class="onboard">On Board</span>` : ""}
                 ${b.crypto ? `<span class="btc-seal-sm" title="${escapeHtml(b.cryptoMethods || "Crypto")}">₿</span>` : ""}
               </div>
@@ -809,9 +837,10 @@
   function markerIcon(bar) {
     const stamped = isStamped(bar.id) ? " stamped" : "";
     const crypto = bar.crypto ? " crypto" : "";
+    const fuel = isNightFuel(bar) ? " fuel" : "";
     return L.divIcon({
       className: "",
-      html: `<div class="marker-dot ${bar.spectrum}${crypto}${stamped}"></div>`,
+      html: `<div class="marker-dot ${bar.spectrum}${crypto}${fuel}${stamped}"></div>`,
       iconSize: [14, 14],
       iconAnchor: [7, 7],
       popupAnchor: [0, -8],
@@ -851,6 +880,7 @@
         <strong>${escapeHtml(b.name)}</strong><br/>
         <span style="color:#9a9080;font-size:0.8em">${escapeHtml(SPECTRUM_LABEL[b.spectrum] || b.spectrum)} · ${escapeHtml(b.area)}</span><br/>
         ${escapeHtml(b.address)}<br/>
+        ${isNightFuel(b) ? '<span style="display:inline-block;margin-top:4px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(232,176,112,0.45);color:#e8b070;padding:2px 6px;border-radius:999px">Kitchen</span><br/>' : ""}
         ${b.partner ? '<span style="display:inline-block;margin-top:4px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:#8b2e1f;color:#f3ead7;padding:2px 6px;border-radius:3px">On Board</span><br/>' : ""}
         <button type="button" class="popup-stamp ${stamped ? "stamped" : ""}" onclick="window.__atxStamp('${b.id}')">
           ${stamped ? "Sealed ✓" : "Get wax seal"}
@@ -1079,6 +1109,15 @@
       $("#cryptoFilter").setAttribute("aria-pressed", state.cryptoOnly ? "true" : "false");
       render();
     });
+    const kitchenBtn = $("#kitchenFilter");
+    if (kitchenBtn) {
+      kitchenBtn.addEventListener("click", () => {
+        state.kitchenOnly = !state.kitchenOnly;
+        kitchenBtn.classList.toggle("on", state.kitchenOnly);
+        kitchenBtn.setAttribute("aria-pressed", state.kitchenOnly ? "true" : "false");
+        render();
+      });
+    }
 
     $("#search").addEventListener("input", (e) => {
       state.query = e.target.value;
