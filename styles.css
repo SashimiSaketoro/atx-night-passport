@@ -371,6 +371,12 @@ body {
     var(--paper-2);
   order: -1;
 }
+.dossier.fuel-featured:not(.crypto-featured) {
+  border-color: rgba(232,176,112,0.32);
+  background:
+    linear-gradient(135deg, rgba(232,176,112,0.07), transparent 45%),
+    var(--paper-2);
+}
 .dossier.open { border-color: var(--gold); }
 .dossier-top {
   display: grid;
@@ -881,6 +887,10 @@ body {
 .map-legend i.craft { background: var(--spec-craft); }
 .map-legend i.upscale { background: var(--spec-upscale); }
 .map-legend i.jacket { background: var(--spec-jacket); }
+.map-legend i.fuel {
+  background: #e8b070;
+  box-shadow: 0 0 0 1px rgba(232,176,112,0.7);
+}
 
 .marker-dot {
   width: 12px; height: 12px;
@@ -896,6 +906,9 @@ body {
 .marker-dot.jacket { background: var(--spec-jacket); }
 .marker-dot.crypto {
   box-shadow: 0 0 0 2px var(--btc), 0 0 10px rgba(247,147,26,0.5);
+}
+.marker-dot.fuel:not(.crypto) {
+  box-shadow: 0 0 0 2px #e8b070, 0 0 8px rgba(232,176,112,0.4);
 }
 .marker-dot.stamped {
   outline: 2px solid #6a9e72;
@@ -1358,6 +1371,19 @@ body.gaydar-mode .toast {
   border-color: #3dba7a;
   color: #9ae6b8;
 }
+.seal-btn.on#kitchenFilter,
+#kitchenFilter[aria-pressed="true"] {
+  border-color: rgba(232,176,112,0.55);
+  color: #e8b070;
+  background: rgba(232,176,112,0.12);
+  box-shadow: 0 0 16px rgba(232,176,112,0.1);
+}
+.seal-btn.on#kitchenFilter .seal-face,
+#kitchenFilter[aria-pressed="true"] .seal-face {
+  background: radial-gradient(circle at 35% 30%, #f3d2a0, #e8b070 60%, #a86a2a);
+  color: #1a1005;
+  border: none;
+}
 .dossier-open {
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -1462,6 +1488,32 @@ body.gaydar-mode .chain-toggle {
   border: 1px solid rgba(240,180,41,0.45);
   padding: 2px 6px;
   border-radius: 999px;
+}
+.dossier-fuel,
+.dossier-kitchen,
+.dossier-truck,
+.dossier-community {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+.dossier-fuel {
+  color: #e8b070;
+  border: 1px solid rgba(232,176,112,0.45);
+}
+.dossier-kitchen {
+  color: #c4a05a;
+  border: 1px solid rgba(196,160,90,0.4);
+}
+.dossier-truck {
+  color: #9a9080;
+  border: 1px solid rgba(154,144,128,0.4);
+}
+.dossier-community {
+  color: #8eb4d4;
+  border: 1px solid rgba(142,180,212,0.4);
 }
 body.gaydar-mode .eyebrow {
   background: linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #24408e, #732982);
