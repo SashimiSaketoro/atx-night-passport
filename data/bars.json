@@ -4095,7 +4095,7 @@
     "area": "Red River / E 7th",
     "address": "519 E 7th St",
     "cluster": "Red River / 7th",
-    "vibe": "Late Mediterranean wraps on E 7th — kitchen open after Red River last calls. Lightning on the Austin BTC map.",
+    "vibe": "Late Mediterranean wraps on E 7th by the Red River cluster. Lightning on the Austin BTC map — confirm tonight.",
     "gaydar": "none",
     "musicAnchor": false,
     "softEdge": false,
@@ -4105,8 +4105,8 @@
       "night-fuel",
       "crypto-confirmed"
     ],
-    "lat": 30.26716,
-    "lng": -97.73722,
+    "lat": 30.2678,
+    "lng": -97.7361,
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,
@@ -4323,6 +4323,7 @@
     "softEdge": true,
     "flags": [
       "kitchen",
+      "food-truck",
       "crypto-confirmed"
     ],
     "lat": 30.24241,
@@ -4394,8 +4395,8 @@
       "coffee",
       "crypto-confirmed"
     ],
-    "lat": 30.25534,
-    "lng": -97.7633,
+    "lat": 30.2562,
+    "lng": -97.7638,
     "crypto": true,
     "cryptoMethods": "BTC Lightning",
     "partner": false,

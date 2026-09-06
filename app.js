@@ -471,7 +471,7 @@
     const flags = barFlags(bar);
     const bits = [];
     if (flags.includes("night-fuel")) bits.push(`<span class="dossier-fuel" title="Late kitchen / night fuel">Kitchen</span>`);
-    else if (flags.includes("kitchen")) bits.push(`<span class="dossier-kitchen" title="Kitchen">Kitchen</span>`);
+    else if (flags.includes("kitchen")) bits.push(`<span class="dossier-kitchen" title="Food stop — not last-call">Food</span>`);
     if (flags.includes("food-truck")) bits.push(`<span class="dossier-truck" title="Food truck">Truck</span>`);
     if (flags.includes("community")) bits.push(`<span class="dossier-community" title="Bitcoin community space">Community</span>`);
     return bits.join("");
@@ -489,10 +489,6 @@
   function barHours(bar) {
     // [openHour, closeHour) in local 24h; close < open means past midnight
     if (bar.id === "jos-coffee-2nd-st") return { open: 7, close: 21, kind: "day" };
-    if (isNightFuel(bar)) return { open: 17, close: 3, kind: "night-fuel" };
-    if (hasFlag(bar, "community")) return { open: 8, close: 18, kind: "day" };
-    if (hasFlag(bar, "kitchen") || hasFlag(bar, "food-truck")) return { open: 10, close: 22, kind: "kitchen" };
-    if (hasFlag(bar, "coffee") && !hasFlag(bar, "cocktails")) return { open: 7, close: 19, kind: "day" };
     if (bar.musicAnchor) return { open: 19, close: 2, kind: "show" };
     if (bar.spectrum === "jacket") return { open: 17, close: 1, kind: "night" };
     if (bar.spectrum === "upscale") return { open: 16, close: 1, kind: "night" };

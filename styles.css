@@ -910,6 +910,9 @@ body {
 .marker-dot.fuel:not(.crypto) {
   box-shadow: 0 0 0 2px #e8b070, 0 0 8px rgba(232,176,112,0.4);
 }
+.marker-dot.crypto.fuel {
+  box-shadow: 0 0 0 2px var(--btc), 0 0 0 4px rgba(232,176,112,0.7), 0 0 10px rgba(247,147,26,0.5);
+}
 .marker-dot.stamped {
   outline: 2px solid #6a9e72;
   outline-offset: 1px;
