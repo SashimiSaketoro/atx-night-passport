@@ -15,7 +15,7 @@
     { min: 3, name: "Night Owl" },
     { min: 8, name: "Regular" },
     { min: 15, name: "Stamp Collector" },
-    { min: 25, name: "Passport Pro" },
+    { min: 25, name: "Inked" },
     { min: 40, name: "ATX Legend" },
   ];
   const STAMPS_KEY = "atx-passport-stamps-v1";
@@ -45,6 +45,7 @@
     mapReady: false,
     openCardId: null,
     cryptoOnly: false,
+    kitchenOnly: false,
     userLoc: null, // {lat,lng,accuracy}
     maxDistanceM: 0, // 0 = any
     locBusy: false,
@@ -252,10 +253,10 @@
     const sub = $("#passportSub");
     if (sub) {
       const btcN = btcPaidCount();
-      if (!info.count) sub.textContent = "Collect wax seals as you hop.";
+      if (!info.count) sub.textContent = "Wax seals for stops you've actually been inside.";
       else if (btcN)
         sub.textContent = `${info.count} seal${info.count === 1 ? "" : "s"} · ${btcN} paid in ₿`;
-      else sub.textContent = `${info.count} wax seal${info.count === 1 ? "" : "s"} in your book.`;
+      else sub.textContent = `${info.count} seal${info.count === 1 ? "" : "s"}.`;
     }
   }
 
@@ -317,7 +318,7 @@
 
   function listStampBtn(bar, stamped) {
     const paid = stamped && stampPaidBtc(bar.id);
-    const label = stamped ? (paid ? "Sealed · paid in Bitcoin" : "Sealed") : "Collect wax seal";
+    const label = stamped ? (paid ? "Sealed · paid in Bitcoin" : "Sealed") : "Get seal";
     const cls = `stamp-btn ${stamped ? "stamped" : "empty"}${paid ? " btc-paid" : ""}`;
     if (stamped) {
       const mark = paid ? "₿" : "ATX";
@@ -457,6 +458,25 @@
     return bar.gaydar === "hard" || bar.gaydar === "soft";
   }
 
+  function barFlags(bar) {
+    return Array.isArray(bar.flags) ? bar.flags : [];
+  }
+  function hasFlag(bar, flag) {
+    return barFlags(bar).includes(flag);
+  }
+  function isNightFuel(bar) {
+    return hasFlag(bar, "night-fuel");
+  }
+  function fuelBadges(bar) {
+    const flags = barFlags(bar);
+    const bits = [];
+    if (flags.includes("night-fuel")) bits.push(`<span class="dossier-fuel" title="Late kitchen">Kitchen</span>`);
+    else if (flags.includes("kitchen")) bits.push(`<span class="dossier-kitchen" title="Food — not last call">Food</span>`);
+    else if (flags.includes("food-truck")) bits.push(`<span class="dossier-truck" title="Food truck">Truck</span>`);
+    if (flags.includes("community")) bits.push(`<span class="dossier-community" title="Bitcoin shop / workspace">Community</span>`);
+    return bits.join("");
+  }
+
   function austinNow() {
     try {
       return new Date(new Date().toLocaleString("en-US", { timeZone: "America/Chicago" }));
@@ -511,6 +531,7 @@
       .filter(matchesEthCircuit)
       .filter((b) => !state.openNow || isLikelyOpen(b))
       .filter((b) => !state.cryptoOnly || b.crypto)
+      .filter((b) => !state.kitchenOnly || isNightFuel(b))
       .filter((b) => {
         if (!maxM || !state.userLoc) return true;
         const d = barDistanceM(b);
@@ -524,7 +545,8 @@
           b.address.toLowerCase().includes(q) ||
           b.cluster.toLowerCase().includes(q) ||
           (b.vibe || "").toLowerCase().includes(q) ||
-        (b.about || "").toLowerCase().includes(q)
+          (b.about || "").toLowerCase().includes(q) ||
+          barFlags(b).join(" ").toLowerCase().includes(q)
         );
       })
       .sort((a, b) => {
@@ -576,16 +598,34 @@
     const list = $("#barList");
     const bars = filteredBars();
     const cryptoCount = state.bars.filter((b) => b.crypto).length;
-    if (state.cryptoOnly) {
+    const fuelCount = state.bars.filter((b) => isNightFuel(b)).length;
+    if (state.cryptoOnly && state.kitchenOnly) {
+      $("#countMeta").textContent = `${bars.length} kitchen ₿`;
+    } else if (state.cryptoOnly) {
       $("#countMeta").textContent = `${bars.length} crypto`;
+    } else if (state.kitchenOnly) {
+      $("#countMeta").textContent = `${bars.length} kitchen`;
     } else {
-      $("#countMeta").textContent = `${bars.length} entries · ${cryptoCount}₿`;
+      $("#countMeta").textContent = `${bars.length} · ${cryptoCount}₿ · ${fuelCount} kitchen`;
+    }
+
+    const hint = $("#circuitHint");
+    if (hint) {
+      if (state.kitchenOnly && bars.length && state.cryptoOnly) {
+        hint.hidden = false;
+        hint.textContent = "Night fuel on LN · Proof of Hop";
+      } else if (state.kitchenOnly && bars.length) {
+        hint.hidden = false;
+        hint.textContent = "Late kitchens · Proof of Hop";
+      } else {
+        hint.hidden = true;
+      }
     }
 
     if (!bars.length) {
       const emptyMsg = state.maxDistanceM && state.userLoc
-        ? "Nothing in that distance — try a wider radius."
-        : "No entries match these filters.";
+        ? "Nothing that close. Widen the radius."
+        : "Nothing matches.";
       list.innerHTML = `<div class="empty-state">${emptyMsg}</div>`;
       return;
     }
@@ -597,7 +637,7 @@
         const dist = barDistanceM(b);
         const distHtml = dist != null ? `<span class="dossier-dist">${formatMiles(dist)}</span>` : "";
         return `
-        <article class="dossier ${open}${b.crypto ? " crypto-featured" : ""}${state.mode === "eth" && b.gaydar === "hard" ? " eth-hard" : ""}${state.mode === "eth" && b.gaydar === "soft" ? " eth-soft" : ""}${state.mode === "eth" && (b.id === "oilcan-harrys" || b.id === "rain-on-4th") ? " eth-anchor" : ""}" data-spec="${b.spectrum}" data-id="${b.id}" data-gay="${escapeHtml(b.gaydar || "none")}">
+        <article class="dossier ${open}${b.crypto ? " crypto-featured" : ""}${isNightFuel(b) ? " fuel-featured" : ""}${state.mode === "eth" && b.gaydar === "hard" ? " eth-hard" : ""}${state.mode === "eth" && b.gaydar === "soft" ? " eth-soft" : ""}${state.mode === "eth" && (b.id === "oilcan-harrys" || b.id === "rain-on-4th") ? " eth-anchor" : ""}" data-spec="${b.spectrum}" data-id="${b.id}" data-gay="${escapeHtml(b.gaydar || "none")}">
           <div class="dossier-top">
             <button type="button" data-expand="${b.id}" style="all:unset;cursor:pointer;display:block;min-width:0">
               <div class="dossier-kicker">
@@ -605,6 +645,7 @@
                 ${distHtml}
                 ${isLikelyOpen(b) ? `<span class="dossier-open">Open</span>` : ""}
                 ${(b.flags || []).includes("coming-soon") ? `<span class="dossier-soon">Soon</span>` : ""}
+                ${fuelBadges(b)}
                 ${b.partner ? `<span class="onboard">On Board</span>` : ""}
                 ${b.crypto ? `<span class="btc-seal-sm" title="${escapeHtml(b.cryptoMethods || "Crypto")}">₿</span>` : ""}
               </div>
@@ -623,7 +664,7 @@
               ${b.website ? `<a class="btn" href="${escapeHtml(b.website)}" target="_blank" rel="noopener">Website</a>` : ""}
               <a class="btn" href="${mapsUrl(b)}" target="_blank" rel="noopener">Maps</a>
               <button type="button" class="btn" data-show-on-map="${b.id}">Map pin</button>
-              <button type="button" class="btn primary" data-stamp="${b.id}">${stamped ? (stampPaidBtc(b.id) ? "₿ sealed" : "Sealed ✓") : "Get wax seal"}</button>
+              <button type="button" class="btn primary" data-stamp="${b.id}">${stamped ? (stampPaidBtc(b.id) ? "₿ sealed" : "Sealed") : "Get seal"}</button>
             </div>
           </div>
         </article>`;
@@ -652,6 +693,7 @@
             <button type="button" class="back-btn" id="huntBack" aria-label="Back">←</button>
             <div>
               <div class="mission-diff" style="color:${escapeHtml(hunt.accent || "#c4a05a")}">${escapeHtml(hunt.difficulty)} · ${prog.done}/${prog.total}</div>
+              ${hunt.hop ? `<p class="poh-kicker">Proof of Hop</p>` : ""}
               <h2>${escapeHtml(hunt.title)}</h2>
               <p class="tagline">${escapeHtml(hunt.tagline)}</p>
             </div>
@@ -777,7 +819,7 @@
       <p class="stamp-detail-about">${escapeHtml(bar.about || bar.vibe || "")}</p>
       <div class="btn-row">
         ${bar.crypto && !paid ? `<button type="button" class="btn primary" data-mark-btc="${bar.id}">Paid in ₿</button>` : ""}
-        ${paid ? `<span class="btc-paid-note">Special ₿ seal unlocked</span>` : ""}
+        ${paid ? `<span class="btc-paid-note">Sealed · paid in Bitcoin</span>` : ""}
         <a class="btn" href="${mapsUrl(bar)}" target="_blank" rel="noopener">Maps</a>
         ${bar.website ? `<a class="btn" href="${escapeHtml(bar.website)}" target="_blank" rel="noopener">Website</a>` : ""}
       </div>`;
@@ -809,9 +851,10 @@
   function markerIcon(bar) {
     const stamped = isStamped(bar.id) ? " stamped" : "";
     const crypto = bar.crypto ? " crypto" : "";
+    const fuel = isNightFuel(bar) ? " fuel" : "";
     return L.divIcon({
       className: "",
-      html: `<div class="marker-dot ${bar.spectrum}${crypto}${stamped}"></div>`,
+      html: `<div class="marker-dot ${bar.spectrum}${crypto}${fuel}${stamped}"></div>`,
       iconSize: [14, 14],
       iconAnchor: [7, 7],
       popupAnchor: [0, -8],
@@ -851,9 +894,10 @@
         <strong>${escapeHtml(b.name)}</strong><br/>
         <span style="color:#9a9080;font-size:0.8em">${escapeHtml(SPECTRUM_LABEL[b.spectrum] || b.spectrum)} · ${escapeHtml(b.area)}</span><br/>
         ${escapeHtml(b.address)}<br/>
+        ${isNightFuel(b) ? '<span style="display:inline-block;margin-top:4px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(232,176,112,0.45);color:#e8b070;padding:2px 6px;border-radius:999px">Kitchen</span><br/>' : ""}
         ${b.partner ? '<span style="display:inline-block;margin-top:4px;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;background:#8b2e1f;color:#f3ead7;padding:2px 6px;border-radius:3px">On Board</span><br/>' : ""}
         <button type="button" class="popup-stamp ${stamped ? "stamped" : ""}" onclick="window.__atxStamp('${b.id}')">
-          ${stamped ? "Sealed ✓" : "Get wax seal"}
+          ${stamped ? "Sealed" : "Get seal"}
         </button>
       `);
       m.addTo(state.map);
@@ -1079,6 +1123,15 @@
       $("#cryptoFilter").setAttribute("aria-pressed", state.cryptoOnly ? "true" : "false");
       render();
     });
+    const kitchenBtn = $("#kitchenFilter");
+    if (kitchenBtn) {
+      kitchenBtn.addEventListener("click", () => {
+        state.kitchenOnly = !state.kitchenOnly;
+        kitchenBtn.classList.toggle("on", state.kitchenOnly);
+        kitchenBtn.setAttribute("aria-pressed", state.kitchenOnly ? "true" : "false");
+        render();
+      });
+    }
 
     $("#search").addEventListener("input", (e) => {
       state.query = e.target.value;
@@ -1259,6 +1312,6 @@
 
   init().catch((err) => {
     console.error(err);
-    $("#barList").innerHTML = `<div class="empty-state">Failed to load passport data.</div>`;
+    $("#barList").innerHTML = `<div class="empty-state">Couldn't load the roster.</div>`;
   });
 })();

@@ -4,15 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0a0907" />
-  <meta name="description" content="ATX Night Passport — geo-stamp scavenger hunts across Austin nightlife." />
+  <meta name="description" content="Wax seals for Austin stops you've actually been inside." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="ATX Night Passport" />
   <meta property="og:title" content="ATX Night Passport" />
-  <meta property="og:description" content="Geo-stamp scavenger hunts across Austin nightlife. Add to Home Screen." />
+  <meta property="og:description" content="Wax seals for Austin stops you've actually been inside. Add to Home Screen." />
   <meta property="og:url" content="https://sashimisaketoro.github.io/atx-night-passport/" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="ATX Night Passport" />
-  <meta name="twitter:description" content="Geo-stamp scavenger hunts across Austin nightlife. Add to Home Screen." />
+  <meta name="twitter:description" content="Wax seals for Austin stops you've actually been inside. Add to Home Screen." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="ATX Passport" />
@@ -56,7 +56,7 @@
         </button>
         <div class="explore-controls" id="exploreControls">
           <div class="search-wrap">
-            <input type="search" id="search" class="search" placeholder="Search bars, streets, vibes…" autocomplete="off" />
+            <input type="search" id="search" class="search" placeholder="Bar, kitchen, street…" autocomplete="off" />
           </div>
 
           <div class="dial-block">
@@ -94,6 +94,10 @@
               <span class="seal-face">₿</span>
               <span class="seal-text">Crypto</span>
             </button>
+            <button type="button" class="seal-btn" id="kitchenFilter" aria-pressed="false" title="Late kitchens — not daytime cafes">
+              <span class="seal-face kitchen-face" aria-hidden="true">♨</span>
+              <span class="seal-text">Kitchen</span>
+            </button>
             <button type="button" class="seal-btn" id="openNowFilter" aria-pressed="false" title="Likely open now">
               <span class="seal-face open-dot" aria-hidden="true"></span>
               <span class="seal-text">Open now</span>
@@ -109,6 +113,7 @@
             </button>
             <span class="meta-hint" id="countMeta">—</span>
           </div>
+          <p class="circuit-hint" id="circuitHint" hidden>Late kitchens · Proof of Hop</p>
         </div>
 
         <div class="dossier-list" id="barList"></div>
@@ -117,8 +122,11 @@
       <!-- HUNTS -->
       <section class="screen" id="screen-hunts" data-screen="hunts">
         <div class="section-intro">
-          <h2>Missions</h2>
-          <p>Scavenger hunts citywide. Stamp once past the doors (~45 m of the pin) — sidewalk pass-by doesn't count. Bars don't need to opt in; ON BOARD partners just help host.</p>
+          <div class="section-intro-head">
+            <h2>Missions</h2>
+            <p class="section-kicker">Proof of Hop</p>
+          </div>
+          <p>Stamp inside (~45 m). Sidewalk doesn't count.</p>
         </div>
         <div class="mission-list" id="huntList"></div>
         <div class="hunt-detail hidden" id="huntDetail"></div>
@@ -130,7 +138,7 @@
           <div class="book-cover">
             <div class="cover-ornament">◆</div>
             <h2>Your Passport</h2>
-            <p id="passportSub">Collect wax seals as you hop.</p>
+            <p id="passportSub">Wax seals for stops you've actually been inside.</p>
             <div class="level-bar">
               <div class="level-fill" id="levelFill"></div>
             </div>
@@ -157,6 +165,7 @@
             <span><i class="craft"></i>Craft</span>
             <span><i class="upscale"></i>Upscale</span>
             <span><i class="jacket"></i>Jacket</span>
+            <span><i class="fuel"></i>Kitchen</span>
           </div>
         </div>
       </section>
@@ -190,7 +199,7 @@
     <div class="btc-pay-card">
       <div class="btc-pay-ico" aria-hidden="true">₿</div>
       <h3>Paid in Bitcoin?</h3>
-      <p>Stamp a special orange seal for <strong id="btcPayName">this stop</strong> if you settled the tab in ₿.</p>
+      <p>Orange seal if you settled the tab in ₿ at <strong id="btcPayName">this stop</strong>.</p>
       <div class="btc-pay-actions">
         <button type="button" class="btn primary" id="btcPayYes">Yes — ₿ seal</button>
         <button type="button" class="btn" id="btcPayNo">Not this time</button>
