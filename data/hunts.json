@@ -1,27 +1,27 @@
 [
   {
     "id": "sixth-street-sprint",
-    "title": "Sixth Street Sprint",
-    "tagline": "Mitzi's before 11; Casino El Camino for the late burger.",
-    "difficulty": "Easy",
-    "reward": "Sixth Early Seal",
-    "accent": "#e8a05a",
+    "title": "Sixth Street Soft",
+    "tagline": "Mitzi's before 11, then the hideouts — ring Harry Craddock at Cowboy.",
+    "difficulty": "Medium",
+    "reward": "Soft Sixth Seal",
+    "accent": "#c4a882",
     "stopIds": [
       "mitzis",
-      "maggie-maes",
-      "blind-pig-pub",
-      "buckshot",
-      "flamingo-cantina",
+      "midnight-cowboy",
+      "firehouse-lounge",
+      "garage",
+      "here-nor-there",
       "casino-el-camino"
     ],
     "partnerIds": [],
     "clues": {
       "mitzis": "Street door at the Mothership. Seal before the public bar hits 11.",
-      "maggie-maes": "Dirty sixth thunder. Keep moving.",
-      "blind-pig-pub": "Biggest deck on Dirty Sixth. Sticky floors, open late.",
-      "buckshot": "Louder, later. The sprint's second wind.",
-      "flamingo-cantina": "Red River edge before the burger.",
-      "casino-el-camino": "Neon late burger — the strip's 2am plate."
+      "midnight-cowboy": "Unmarked door, red bulb. Reserve ahead, then ring Harry Craddock — not the other names.",
+      "firehouse-lounge": "1885 firehouse hostel. Find the bookshelf door; no street sign.",
+      "garage": "Colorado parking deck curve. Mid-century hideout under the city.",
+      "here-nor-there": "By the Driskill — neither lobby nor alley. Soft voice.",
+      "casino-el-camino": "Neon late burger when the hideouts thin out."
     }
   },
   {
