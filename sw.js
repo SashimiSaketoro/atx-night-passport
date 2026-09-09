@@ -1,12 +1,10 @@
-const CACHE = "atx-night-passport-v11-dev";
+const CACHE = "atx-night-passport-v12";
 const SHELL = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
   "./manifest.webmanifest",
-  "./data/bars.json",
-  "./data/hunts.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png",
@@ -30,11 +28,25 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);
   if (url.origin !== self.location.origin) {
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+    return;
+  }
+
+  // Roster / hunts: network-first so public updates aren't stuck behind SW cache.
+  const isData = url.pathname.includes("/data/") || /\/(bars|hunts)\.json$/.test(url.pathname);
+  if (isData || e.request.url.includes("/data/")) {
     e.respondWith(
-      fetch(e.request).catch(() => caches.match(e.request))
+      fetch(e.request)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, copy));
+          return res;
+        })
+        .catch(() => caches.match(e.request))
     );
     return;
   }
+
   e.respondWith(
     caches.match(e.request).then((cached) =>
       cached ||
