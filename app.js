@@ -469,6 +469,8 @@
   function barHours(bar) {
     // [openHour, closeHour) in local 24h; close < open means past midnight
     if (bar.id === "jos-coffee-2nd-st") return { open: 7, close: 21, kind: "day" };
+    // Public bar at Comedy Mothership — closes 11pm (show-side may differ).
+    if (bar.id === "mitzis") return { open: 18, close: 23, kind: "early" };
     if (bar.musicAnchor) return { open: 19, close: 2, kind: "show" };
     if (bar.spectrum === "jacket") return { open: 17, close: 1, kind: "night" };
     if (bar.spectrum === "upscale") return { open: 16, close: 1, kind: "night" };

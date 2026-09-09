@@ -1,5 +1,30 @@
 [
   {
+    "id": "sixth-street-sprint",
+    "title": "Sixth Street Sprint",
+    "tagline": "Mitzi's before 11, then Dirty Sixth that keeps the lights on.",
+    "difficulty": "Easy",
+    "reward": "Sixth Early Seal",
+    "accent": "#e8a05a",
+    "stopIds": [
+      "mitzis",
+      "casino-el-camino",
+      "maggie-maes",
+      "blind-pig-pub",
+      "buckshot",
+      "flamingo-cantina"
+    ],
+    "partnerIds": [],
+    "clues": {
+      "mitzis": "Street door at the Mothership. Seal before the public bar hits 11.",
+      "casino-el-camino": "Neon burgers next — the strip that doesn't clock out early.",
+      "maggie-maes": "Dirty sixth thunder. Keep moving east or west.",
+      "blind-pig-pub": "Biggest deck on Dirty Sixth. Sticky floors, open late.",
+      "buckshot": "Louder, later. The sprint's second wind.",
+      "flamingo-cantina": "Red River edge. Finish when Mitzi's is already dark."
+    }
+  },
+  {
     "id": "spectrum-run",
     "title": "Spectrum Run",
     "tagline": "One stamp per dress code — from sticky floors to jacket required.",
