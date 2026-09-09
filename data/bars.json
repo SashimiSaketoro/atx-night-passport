@@ -244,6 +244,26 @@
     "website": "https://maggiemaesaustin.com/"
   },
   {
+    "id": "mitzis",
+    "name": "Mitzi's",
+    "spectrum": "craft",
+    "area": "Dirty 6th",
+    "address": "320 E 6th St",
+    "cluster": "Dirty 6th",
+    "vibe": "Comedy Mothership's street-door cocktail bar — drinks without a show ticket.",
+    "gaydar": "none",
+    "musicAnchor": false,
+    "softEdge": false,
+    "flags": [],
+    "lat": 30.26735,
+    "lng": -97.73855,
+    "crypto": false,
+    "cryptoMethods": "",
+    "partner": false,
+    "about": "Tucked in Joe Rogan's Comedy Mothership but open from the street. Craft cocktails, scruffy booths, pre-show energy that thins mid-set. You can come for drinks without Mothership tickets.",
+    "website": "https://www.comedymothership.com/"
+  },
+  {
     "id": "peckerheads",
     "name": "Peckerheads",
     "spectrum": "sloppy",
