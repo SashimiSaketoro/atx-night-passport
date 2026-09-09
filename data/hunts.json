@@ -2,26 +2,26 @@
   {
     "id": "sixth-street-sprint",
     "title": "Sixth Street Sprint",
-    "tagline": "Mitzi's before 11, then Dirty Sixth that keeps the lights on.",
+    "tagline": "Mitzi's before 11; Casino El Camino for the late burger.",
     "difficulty": "Easy",
     "reward": "Sixth Early Seal",
     "accent": "#e8a05a",
     "stopIds": [
       "mitzis",
-      "casino-el-camino",
       "maggie-maes",
       "blind-pig-pub",
       "buckshot",
-      "flamingo-cantina"
+      "flamingo-cantina",
+      "casino-el-camino"
     ],
     "partnerIds": [],
     "clues": {
       "mitzis": "Street door at the Mothership. Seal before the public bar hits 11.",
-      "casino-el-camino": "Neon burgers next — the strip that doesn't clock out early.",
-      "maggie-maes": "Dirty sixth thunder. Keep moving east or west.",
+      "maggie-maes": "Dirty sixth thunder. Keep moving.",
       "blind-pig-pub": "Biggest deck on Dirty Sixth. Sticky floors, open late.",
       "buckshot": "Louder, later. The sprint's second wind.",
-      "flamingo-cantina": "Red River edge. Finish when Mitzi's is already dark."
+      "flamingo-cantina": "Red River edge before the burger.",
+      "casino-el-camino": "Neon late burger — the strip's 2am plate."
     }
   },
   {
